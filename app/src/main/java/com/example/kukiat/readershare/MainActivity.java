@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
                                 String name = jsonObject.getString("name");
                                 String topic = jsonObject.getString("topic");
                                 String rating = jsonObject.getString("rating");
-
-                                ListItem ls = new ListItem(name, topic, rating);
+                                String book = jsonObject.getString("image");
+                                ListItem ls = new ListItem(name, topic, rating, book);
                                 listItems.add(ls);
 
                             } catch (JSONException e) {

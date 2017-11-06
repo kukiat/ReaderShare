@@ -6,7 +6,10 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -37,6 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         holder.vTopic.setText(listItem.getTopic());
         holder.vName.setText(listItem.getName());
         holder.vRating.setText(listItem.getRating());
+        Picasso.with(ct).load(listItem.getBook()).resize(230, 200).into(holder.vBook);
     }
 
     @Override
@@ -48,12 +52,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         public TextView vName;
         public TextView vTopic;
         public TextView vRating;
+        public ImageView vBook;
 
         public ViewHolder(View v) {
             super(v);
             vName = (TextView) v.findViewById(R.id.name);
             vRating = (TextView) v.findViewById(R.id.rating);
             vTopic = (TextView) v.findViewById(R.id.topic);
+            vBook = (ImageView) v.findViewById(R.id.picBook);
         }
     }
 }

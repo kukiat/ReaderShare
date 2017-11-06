@@ -8,11 +8,21 @@ public class ListItem {
     public String name;
     public String topic;
     public String rating;
+    public String book;
 
-    public ListItem(String name, String topic, String rating) {
+    public ListItem(String name, String topic, String rating, String book) {
         this.name = name;
         this.topic = topic;
         this.rating = rating;
+        this.book = book;
+    }
+
+    public String getBook() {
+        return book;
+    }
+
+    public void setBook(String book) {
+        this.book = book;
     }
 
     public void setName(String name) {
