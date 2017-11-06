@@ -10,11 +10,12 @@
         app:cardBackgroundColor="@android:color/holo_blue_light">
 
         <LinearLayout
+            android:id="@+id/listCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/picBook"
+                android:id="@+id/picName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -31,15 +32,15 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="33dp"
                 android:layout_marginStart="33dp"
-                android:layout_toEndOf="@+id/picBook"
-                android:layout_toRightOf="@+id/picBook"
+                android:layout_toEndOf="@+id/picName"
+                android:layout_toRightOf="@+id/picName"
                 android:text="asdsdsd" />
 
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/picBook"
+                android:layout_alignBottom="@+id/picName"
                 android:layout_alignLeft="@+id/topic"
                 android:layout_alignStart="@+id/topic"
                 android:text="Name" />
