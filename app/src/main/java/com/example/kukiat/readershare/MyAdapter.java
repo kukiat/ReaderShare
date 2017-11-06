@@ -21,13 +21,12 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
-    private Context mContext;
     private List<ListItem> listItems;
-    private Context ct;
+    private Context context;
 
     public MyAdapter(List<ListItem> listItems, Context context) {
         this.listItems = listItems;
-        this.ct = context;
+        this.context = context;
     }
 
     @Override
@@ -43,15 +42,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         holder.vTopic.setText(listItem.getTopic());
         holder.vName.setText(listItem.getName());
         holder.vRating.setText(listItem.getRating());
-        Picasso.with(ct).load(listItem.getBook()).resize(230, 200).into(holder.vBook);
+        Picasso.with(context).load(listItem.getBook()).resize(230, 200).into(holder.vBook);
 
         holder.vListCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ct,ShowActivity.class);
+                Intent intent = new Intent(context, ShowActivity.class);
                 intent.putExtra("id", listItem.getId());
-
-
+                context.startActivity(intent);
             }
         });
     }
