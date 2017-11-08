@@ -57,8 +57,8 @@ public class ShowActivity extends AppCompatActivity {
 
                             tvTopic = (TextView) findViewById(R.id.listName);
                             tvTopic.setText(response.getString("name"));
-//                            Picasso.with(getApplicationContext()).load(response.getString("imageName")).into(ivPicName);
-//                            Picasso.with(getApplicationContext()).load(response.getString("imageBook")).into(ivPicBook);
+//                            Picasso.with(getApplicationContext()).load(response.getString("imageName")).resize(150, 150).into(ivPicName);
+//                            Picasso.with(getApplicationContext()).load(response.getString("imageBook")).resize(350,350).into(ivPicBook);
 
 
 
