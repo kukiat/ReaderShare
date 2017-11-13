@@ -46,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goPost(View v) {
+        Intent intent = new Intent(getBaseContext(), PostActivity.class);
+        startActivity(intent);
+    }
+
     private void fetchData() {
 
         String url = "https://readershare.herokuapp.com/feeds";
