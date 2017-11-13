@@ -6,58 +6,64 @@
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@android:color/holo_blue_light">
+        android:layout_width="332dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="@color/cardview_light_background">
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/listCard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/picName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="13dp"
-                android:layout_marginStart="13dp"
+                android:layout_margin="@dimen/cardview_default_elevation"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.666"
                 app:srcCompat="@mipmap/ic_launcher" />
 
             <TextView
                 android:id="@+id/topic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="33dp"
-                android:layout_marginStart="33dp"
-                android:layout_toEndOf="@+id/picName"
-                android:layout_toRightOf="@+id/picName"
-                android:text="asdsdsd" />
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:text="topic"
+                app:layout_constraintStart_toEndOf="@+id/picName"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/picName"
-                android:layout_alignLeft="@+id/topic"
-                android:layout_alignStart="@+id/topic"
-                android:text="Name" />
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/picName"
+                app:layout_constraintTop_toBottomOf="@+id/topic"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/topic"
-                android:layout_alignRight="@+id/topic"
-                android:layout_alignTop="@+id/name"
-                android:layout_marginEnd="31dp"
-                android:layout_marginRight="31dp"
-                android:text="Rating" />
-
-        </LinearLayout>
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="32dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
 

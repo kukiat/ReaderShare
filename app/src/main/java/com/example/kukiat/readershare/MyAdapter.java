@@ -2,6 +2,7 @@ package com.example.kukiat.readershare;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -64,7 +65,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         public TextView vTopic;
         public TextView vRating;
         public ImageView vBook;
-        public LinearLayout vListCard;
+        public ConstraintLayout vListCard;
 
         public ViewHolder(View v) {
             super(v);
@@ -72,7 +73,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             vRating = (TextView) v.findViewById(R.id.rating);
             vTopic = (TextView) v.findViewById(R.id.topic);
             vBook = (ImageView) v.findViewById(R.id.picName);
-            vListCard = (LinearLayout) v.findViewById(R.id.listCard);
+            vListCard = (ConstraintLayout) v.findViewById(R.id.listCard);
         }
     }
 }
