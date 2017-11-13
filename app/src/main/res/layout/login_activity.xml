@@ -68,7 +68,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/email" />
 
             <Button
-                android:id="@+id/signinBtn"
+                android:id="@+id/signInBtn"
                 android:layout_width="264dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="24dp"
@@ -80,15 +80,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/signupBtn"
+                android:id="@+id/signUpBtn"
                 android:layout_width="264dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="4dp"
                 android:backgroundTint="#50B8E8"
                 android:text="SIGN UP"
+                android:onClick="goSignUp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signinBtn" />
+                app:layout_constraintTop_toBottomOf="@+id/signInBtn" />
 
 
         </android.support.constraint.ConstraintLayout>
