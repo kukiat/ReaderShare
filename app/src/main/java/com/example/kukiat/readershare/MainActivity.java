@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void fetchData() {
 
-        String url = "http:10.0.2.2:3000/api/feed";
+        String url = "https://readershare.herokuapp.com/feeds";
         listItems = new ArrayList<>();
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null,

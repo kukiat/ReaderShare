@@ -32,6 +32,7 @@ public class ShowActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.get_list_item);
+
         Bundle bundle = getIntent().getExtras();
         if(bundle != null) {
             int id = bundle.getInt("id");
@@ -40,7 +41,7 @@ public class ShowActivity extends AppCompatActivity {
     }
 
     public void fetchGetFeedData(int id) {
-        String url = "http:10.0.2.2:3000/api/feed/"+id;
+        String url = "https://readershare.herokuapp.com/review/"+id;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
