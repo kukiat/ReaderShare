@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -14,6 +16,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
     private List<ListItem> listItems;
 
+    private TextView mText;
+
+    private Button mButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,13 +44,33 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        mButton = findViewById(R.id.buttonSignIn);
+        mText = findViewById(R.id.fireId);
         fetchData();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+//            // Name, email address, and profile photo Url
+//            String email = user.getEmail();
+//
+//            // The user's ID, unique to the Firebase project. Do NOT use this value to
+//            // authenticate with your backend server, if you have one. Use
+//            // FirebaseUser.getToken() instead.
+            String uid = user.getEmail();
+            mText.setText(uid);
+            mButton.setText("SIGN OUT");
+        }
     }
 
     public void goLogIn(View v) {
-        Intent intent = new Intent(getBaseContext(), LogInActivity.class);
-        startActivity(intent);
+        if (mButton.getText().toString() == "SIGN OUT"){
+            FirebaseAuth.getInstance().signOut();
+            mButton.setText("SIGN IN");
+            mText.setText("not login");
+        }else {
+            Intent intent = new Intent(getBaseContext(), LogInActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void goPost(View v) {
