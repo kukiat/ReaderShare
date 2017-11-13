@@ -1,6 +1,7 @@
 package com.example.kukiat.readershare;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = (RecyclerView) findViewById(R.id.view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        SharedPreferences pref = getSharedPreferences("Authen", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
 
+        String token = pref.getString("token", "");
+        Log.i("token", token);
         fetchData();
     }
 
@@ -52,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchData() {
+        recyclerView = (RecyclerView) findViewById(R.id.view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         String url = "https://readershare.herokuapp.com/feeds";
         listItems = new ArrayList<>();

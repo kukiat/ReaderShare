@@ -1,5 +1,6 @@
 package com.example.kukiat.readershare;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -58,8 +59,8 @@ public class ShowActivity extends AppCompatActivity {
 
                             tvTopic = (TextView) findViewById(R.id.listName);
                             tvTopic.setText(response.getString("name"));
-//                            Picasso.with(getApplicationContext()).load(response.getString("imageName")).resize(150, 150).into(ivPicName);
-//                            Picasso.with(getApplicationContext()).load(response.getString("imageBook")).resize(350,350).into(ivPicBook);
+//                            Picasso.with().load(response.getString("imageName")).resize(150, 150).into(ivPicName);
+//                            Picasso.with().load(response.getString("imageBook")).resize(350,350).into(ivPicBook);
 
 
 
