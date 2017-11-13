@@ -1,10 +1,12 @@
 package com.example.kukiat.readershare;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -37,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         fetchData();
+    }
+
+    public void goLogIn(View v) {
+        Intent intent = new Intent(getBaseContext(), LogInActivity.class);
+        startActivity(intent);
     }
 
     private void fetchData() {
