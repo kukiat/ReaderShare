@@ -35,11 +35,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences pref = getSharedPreferences("Authen", MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-
-        String token = pref.getString("token", "");
-        Log.i("token", token);
         fetchData();
     }
 
