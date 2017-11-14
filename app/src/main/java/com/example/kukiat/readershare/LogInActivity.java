@@ -79,7 +79,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
     public void goSignUp(View v) {
         Intent intent = new Intent(getBaseContext(), SignUpActivity.class);
-        startActivity(intent);
+        getBaseContext().startActivity(intent);
     }
 
     @Override
