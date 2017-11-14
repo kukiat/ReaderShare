@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "29404345743",
-    "firebase_url": "https://readershare-62434.firebaseio.com",
-    "project_id": "readershare-62434",
-    "storage_bucket": "readershare-62434.appspot.com"
+    "project_number": "271780743956",
+    "firebase_url": "https://readershare-1.firebaseio.com",
+    "project_id": "readershare-1",
+    "storage_bucket": "readershare-1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:29404345743:android:c402d235271921a4",
+        "mobilesdk_app_id": "1:271780743956:android:c402d235271921a4",
         "android_client_info": {
           "package_name": "com.example.kukiat.readershare"
         }
       },
       "oauth_client": [
         {
-          "client_id": "29404345743-p479ug5g4ccv3h5kab2j093a3pc9to7i.apps.googleusercontent.com",
+          "client_id": "271780743956-06vomp6743dqdkqcapoe3q8pcolha8f3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA80SZrQc7NqVwCFLxS5wJK9DHPXFBxd8U"
+          "current_key": "AIzaSyBeIvMYZEiEl_u5jAUyuvAphPbRlEqYqbg"
         }
       ],
       "services": {
