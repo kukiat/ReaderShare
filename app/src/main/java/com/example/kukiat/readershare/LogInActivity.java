@@ -53,16 +53,17 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         if (!validateForm()) {
             return;
         }
-        Log.d("signIN1", "signInWithEmail:success");
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
         Log.d("signIN2", email + password);
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("signIN3", "signInWithEmail:success");
                             startActivity(new Intent(LogInActivity.this, MainActivity.class));
