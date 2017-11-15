@@ -62,6 +62,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.i("Res", String.valueOf(task.isSuccessful()));
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("signIN3", "signInWithEmail:success");
@@ -98,8 +99,9 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void goSignUp(View v) {
+        Log.i("Res", "onClick");
         Intent intent = new Intent(getBaseContext(), SignUpActivity.class);
-        getBaseContext().startActivity(intent);
+        startActivity(intent);
     }
 
     @Override

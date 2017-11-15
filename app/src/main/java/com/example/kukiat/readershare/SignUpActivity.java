@@ -61,7 +61,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         jsonBody.put("email", email.getText().toString());
         jsonBody.put("password", password.getText().toString());
         final String requestBody = jsonBody.toString();
-
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
                     @Override
@@ -157,4 +156,3 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 }
-

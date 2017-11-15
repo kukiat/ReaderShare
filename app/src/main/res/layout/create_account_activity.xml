@@ -55,7 +55,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/createMailField" />
 
             <Button
-                android:id="@+id/createBtn"
                 android:layout_width="264dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="28dp"
