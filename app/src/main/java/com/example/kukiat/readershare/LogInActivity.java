@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -44,12 +45,14 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if ( currentUser != null ) {
             startActivity(new Intent(LogInActivity.this, MainActivity.class));
-//            Log.d("onstart", currentUser.toString());
         }
 
     }
 
     private void startSignIn() {
+        if (!validateForm()) {
+            return;
+        }
         Log.d("signIN1", "signInWithEmail:success");
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
@@ -59,27 +62,46 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.i("Res", String.valueOf(task.isSuccessful()));
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("signIN3", "signInWithEmail:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
                             startActivity(new Intent(LogInActivity.this, MainActivity.class));
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LogInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            Log.d("signIN4", "signInWithEmail:success");
                         }
-
-                        // ...
                     }
                 });
     }
 
+    private boolean validateForm() {
+        boolean valid = true;
+
+        String email = mEmailField.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            mEmailField.setError("Required.");
+            valid = false;
+        } else {
+            mEmailField.setError(null);
+        }
+
+        String password = mPasswordField.getText().toString();
+        if (TextUtils.isEmpty(password)) {
+            mPasswordField.setError("Required.");
+            valid = false;
+        } else {
+            mPasswordField.setError(null);
+        }
+
+        return valid;
+    }
+
     public void goSignUp(View v) {
+        Log.i("Res", "onClick");
         Intent intent = new Intent(getBaseContext(), SignUpActivity.class);
-        getBaseContext().startActivity(intent);
+        startActivity(intent);
     }
 
     @Override

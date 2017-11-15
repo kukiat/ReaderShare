@@ -45,17 +45,20 @@ public class MainActivity extends AppCompatActivity {
         mText = findViewById(R.id.fireId);
         mButton = findViewById(R.id.buttonSignIn);
         fetchData();
-
+        Log.i("Res", "Main");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
 //            // Name, email address, and profile photo Url
-//            String email = user.getEmail();
+            String email = user.getEmail();
+            mText.setText(email);
 //
 //            // The user's ID, unique to the Firebase project. Do NOT use this value to
 //            // authenticate with your backend server, if you have one. Use
 //            // FirebaseUser.getToken() instead.
-            String uid = user.getEmail();
-            mText.setText(uid);
+//            FirebaseUser user = firebaseAuth.getCurrentUser().getIdToken(true).toString();
+//            String uid = FirebaseUser.getIdToken();
+
+//            mText.setText(email);
             mButton.setText("SIGN OUT");
         }
     }
