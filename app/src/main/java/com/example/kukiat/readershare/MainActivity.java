@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -15,6 +18,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +28,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.security.auth.login.LoginException;
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -30,22 +37,51 @@ public class MainActivity extends AppCompatActivity {
 
     private List<ListItem> listItems;
 
+    private TextView mText;
+
+    private Button mButton;
+    private FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mText = findViewById(R.id.fireId);
+        mButton = findViewById(R.id.buttonSignIn);
         fetchData();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String uid = user.getEmail();
+            mText.setText(uid);
+            mButton.setText("SIGN OUT");
+        }
     }
 
     public void goLogIn(View v) {
-        Intent intent = new Intent(getBaseContext(), LogInActivity.class);
-        startActivity(intent);
+        if (mButton.getText().toString() == "SIGN OUT"){
+            FirebaseAuth.getInstance().signOut();
+            mButton.setText("SIGN IN");
+            mText.setText("not login");
+        }else {
+            Intent intent = new Intent(getBaseContext(), LogInActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void goPost(View v) {
-        Intent intent = new Intent(getBaseContext(), PostActivity.class);
-        startActivity(intent);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null){
+            Intent intent = new Intent(getBaseContext(), PostActivity.class);
+            startActivity(intent);
+
+        }else{
+            Toast.makeText(MainActivity.this, "You need to Login first",
+                    Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(getBaseContext(), LogInActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void fetchData() {

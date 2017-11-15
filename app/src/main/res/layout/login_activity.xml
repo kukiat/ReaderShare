@@ -72,7 +72,6 @@
                 android:layout_width="264dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="24dp"
-                android:onClick="logInClick"
                 android:layout_marginTop="248dp"
                 android:backgroundTint="@color/colorAccent"
                 android:text="SIGN IN"
