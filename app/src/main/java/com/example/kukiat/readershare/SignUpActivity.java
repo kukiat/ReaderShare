@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -40,26 +41,22 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private EditText password;
     private FirebaseAuth mAuth;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_account_activity);
         email = findViewById(R.id.createMailField);
         password = findViewById(R.id.createPassFiled);
-
-        findViewById(R.id.fireBtn).setOnClickListener(this);
-        mAuth = FirebaseAuth.getInstance();
     }
 
     public void signUpClick(View v) throws JSONException {
-        if (!validateForm()) {
-            return;
-        }
-        String URL = "https://readershare.herokuapp.com/register";
 
+        String URL = "https://readershare.herokuapp.com/register";
         JSONObject jsonBody = new JSONObject();
         jsonBody.put("email", email.getText().toString());
         jsonBody.put("password", password.getText().toString());
+
         final String requestBody = jsonBody.toString();
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
@@ -71,6 +68,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError err) {
+
                         Log.d("Error.Response", err.getMessage());
                     }
                 }
@@ -152,6 +150,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                     }
                 });
+
 
 
     }

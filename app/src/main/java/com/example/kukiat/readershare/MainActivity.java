@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -27,6 +28,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.security.auth.login.LoginException;
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView mText;
 
     private Button mButton;
+    private FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,20 +50,10 @@ public class MainActivity extends AppCompatActivity {
         mText = findViewById(R.id.fireId);
         mButton = findViewById(R.id.buttonSignIn);
         fetchData();
-        Log.i("Res", "Main");
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-//            // Name, email address, and profile photo Url
-            String email = user.getEmail();
-            mText.setText(email);
-//
-//            // The user's ID, unique to the Firebase project. Do NOT use this value to
-//            // authenticate with your backend server, if you have one. Use
-//            // FirebaseUser.getToken() instead.
-//            FirebaseUser user = firebaseAuth.getCurrentUser().getIdToken(true).toString();
-//            String uid = FirebaseUser.getIdToken();
-
-//            mText.setText(email);
+            String uid = user.getEmail();
+            mText.setText(uid);
             mButton.setText("SIGN OUT");
         }
     }
@@ -75,8 +70,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goPost(View v) {
-        Intent intent = new Intent(getBaseContext(), PostActivity.class);
-        startActivity(intent);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null){
+            Intent intent = new Intent(getBaseContext(), PostActivity.class);
+            startActivity(intent);
+
+        }else{
+            Toast.makeText(MainActivity.this, "You need to Login first",
+                    Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(getBaseContext(), LogInActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void fetchData() {
