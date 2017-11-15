@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -26,6 +27,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.security.auth.login.LoginException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,8 +70,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goPost(View v) {
-        Intent intent = new Intent(getBaseContext(), PostActivity.class);
-        startActivity(intent);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null){
+            Intent intent = new Intent(getBaseContext(), PostActivity.class);
+            startActivity(intent);
+
+        }else{
+            Toast.makeText(MainActivity.this, "You need to Login first",
+                    Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(getBaseContext(), LogInActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void fetchData() {
