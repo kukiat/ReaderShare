@@ -8,30 +8,26 @@
 
     <Button
         android:id="@+id/buttonSignIn"
-        android:layout_width="111dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="sign in"
+        android:layout_width="110dp"
+        android:layout_height="45dp"
         android:onClick="goLogIn"
+        android:text="sign in"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonPost"
-        android:layout_width="107dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:text="post topic"
+        android:layout_width="110dp"
+        android:layout_height="45dp"
         android:onClick="goPost"
+        android:text="post topic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/view"
-        android:layout_width="382dp"
-        android:layout_height="430dp"
+        android:layout_width="376dp"
+        android:layout_height="410dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -40,7 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.492">
+        app:layout_constraintVertical_bias="0.441">
 
     </android.support.v7.widget.RecyclerView>
 
@@ -48,9 +44,11 @@
         android:id="@+id/fireId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/buttonPost"
         app:layout_constraintStart_toEndOf="@+id/buttonSignIn"
         app:layout_constraintTop_toTopOf="parent" />
 
