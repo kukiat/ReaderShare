@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        String url = "https://readershare.herokuapp.com/feeds";
+        String url = "http://10.0.2.2:3000/mockFeeds";
         listItems = new ArrayList<>();
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null,

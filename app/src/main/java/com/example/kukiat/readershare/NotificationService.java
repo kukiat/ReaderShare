@@ -114,6 +114,7 @@ public class NotificationService extends Service{
         @Override
         public void onError(String error) {
             Log.i("service", "netpie "+error);
+            onCreate();
         }
 
         @Override
