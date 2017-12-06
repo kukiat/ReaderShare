@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         mText = findViewById(R.id.fireId);
         mButton = findViewById(R.id.buttonSignIn);
         fetchData();
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String uid = user.getEmail();
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         JSONObject jsonObject;
-
+                        Gson gson = new Gson();
                         for(int i=0; i<response.length(); i++) {
                             try {
                                 jsonObject = response.getJSONObject(i);

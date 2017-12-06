@@ -42,7 +42,7 @@ public class ShowActivity extends AppCompatActivity {
     }
 
     public void fetchGetFeedData(int id) {
-        String url = "https://readershare.herokuapp.com/review/"+id;
+        String url = "https://readershare.herokuapp.com/mock/review/"+id;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -59,8 +59,9 @@ public class ShowActivity extends AppCompatActivity {
 
                             tvTopic = (TextView) findViewById(R.id.listName);
                             tvTopic.setText(response.getString("name"));
-//                            Picasso.with().load(response.getString("imageName")).resize(150, 150).into(ivPicName);
-//                            Picasso.with().load(response.getString("imageBook")).resize(350,350).into(ivPicBook);
+                            Log.i("bookss",response.getString("imageName"));
+//                            Picasso.with(getBaseContext()).load(response.getString("imageName")).resize(150, 150).error(R.drawable.blurbook).into(ivPicName);
+//                            Picasso.with(getBaseContext()).load(response.getString("imageBook")).resize(350,350).error(R.drawable.blurbook).into(ivPicBook);
 
 
 
