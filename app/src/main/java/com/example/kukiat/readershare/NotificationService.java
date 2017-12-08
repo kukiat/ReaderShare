@@ -12,6 +12,9 @@ import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import io.netpie.microgear.Microgear;
 import io.netpie.microgear.MicrogearEventListener;
 
@@ -56,6 +59,13 @@ public class NotificationService extends Service{
                 Log.i("service", message);
                 Intent intent = new Intent(getBaseContext(), ShowActivity.class);
                 intent.putExtra("message", message);
+                JSONObject data;
+                try {
+                    data = new JSONObject(message);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 PendingIntent pIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
 
                 NotificationCompat.Builder n = new NotificationCompat.Builder(getBaseContext())
