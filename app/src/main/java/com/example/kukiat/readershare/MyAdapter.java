@@ -12,7 +12,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -43,6 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         holder.vTopic.setText(listItem.getTopic());
         holder.vName.setText(listItem.getName());
         holder.vRating.setText(listItem.getRating());
+        Log.i("book",listItem.getBook().toString());
         Picasso.with(context).load(listItem.getBook()).resize(230, 200).into(holder.vBook);
 
         holder.vListCard.setOnClickListener(new View.OnClickListener() {

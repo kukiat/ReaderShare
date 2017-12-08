@@ -12,6 +12,9 @@ import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import io.netpie.microgear.Microgear;
 import io.netpie.microgear.MicrogearEventListener;
 
@@ -22,10 +25,9 @@ import io.netpie.microgear.MicrogearEventListener;
 public class NotificationService extends Service{
     private Microgear microgear = new Microgear(this);
     private String appid = "noti";
-    private String key = "6xeLdlHHWBuM49O";
-    private String secret = "tzTRtxJbuejASaIBHWD3snUa3";
+    private String key = "a4OavAaNmJ2HUUZ";
+    private String secret = "KnE8YvodLiWpBCtMvE9fmrFaD";
     private String alias = "client";
-    Thread gameThread = null;
     Handler handler;
 
     @Override
@@ -37,7 +39,9 @@ public class NotificationService extends Service{
 
     @Override
     public void onCreate() {
-        microgear.disconnect();
+        microgear.setCallback(new MicrogearCallBack());
+        microgear.subscribe("message");
+        microgear.connect(appid, key, secret, alias);
         Log.i("service", "create BackgroudService");
     }
 
@@ -45,9 +49,6 @@ public class NotificationService extends Service{
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        microgear.setCallback(new MicrogearCallBack());
-        microgear.subscribe("message");
-        microgear.connect(appid, key, secret, alias);
         Log.i("service", "onStartCommand BackgroudService");
 
         handler = new Handler() {
@@ -55,8 +56,16 @@ public class NotificationService extends Service{
             public void handleMessage(Message msg) {
                 Bundle bundle = msg.getData();
                 String message = bundle.getString("myKey");
+                Log.i("service", message);
+                Intent intent = new Intent(getBaseContext(), ShowActivity.class);
+                intent.putExtra("message", message);
+                JSONObject data;
+                try {
+                    data = new JSONObject(message);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                Intent intent = new Intent(getBaseContext(), MainActivity.class);
                 PendingIntent pIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
 
                 NotificationCompat.Builder n = new NotificationCompat.Builder(getBaseContext())
@@ -78,6 +87,7 @@ public class NotificationService extends Service{
     public void onDestroy() {
         Log.i("service", "destroy BackgroudService");
         super.onDestroy();
+        microgear.disconnect();
     }
 
     class MicrogearCallBack implements MicrogearEventListener {
@@ -90,20 +100,20 @@ public class NotificationService extends Service{
         public void onMessage(String topic, String message) {
             Message msg = handler.obtainMessage();
             Bundle bundle = new Bundle();
-            bundle.putString("myKey", topic+" : "+message);
+//            Log.i("service",message);
+            bundle.putString("myKey", message);
             msg.setData(bundle);
             handler.sendMessage(msg);
-            Log.i("service",message);
         }
 
         @Override
         public void onPresent(String token) {
-            Log.i("service", "netpie"+token);
+//            Log.i("service", "netpie "+token);
         }
 
         @Override
         public void onAbsent(String token) {
-            Log.i("service", "netpie absend");
+//            Log.i("service", "netpie absend");
         }
 
         @Override
@@ -113,8 +123,9 @@ public class NotificationService extends Service{
 
         @Override
         public void onError(String error) {
-            Log.i("service", "netpie "+error);
-            onCreate();
+
+//            Log.i("service", "netpie "+error);
+//            onCreate();
         }
 
         @Override

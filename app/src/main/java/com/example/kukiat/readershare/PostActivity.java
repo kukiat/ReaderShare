@@ -23,8 +23,6 @@ public class PostActivity extends AppCompatActivity {
         setContentView(R.layout.post_layout);
         uid = findViewById(R.id.uid);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-
         if(user != null){
             uid.setText(user.getUid());
         }

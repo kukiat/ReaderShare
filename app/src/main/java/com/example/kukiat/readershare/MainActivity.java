@@ -18,6 +18,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-
-    private List<ListItem> listItems;
 
     private TextView mText;
 
@@ -46,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         mText = findViewById(R.id.fireId);
         mButton = findViewById(R.id.buttonSignIn);
         fetchData();
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String uid = user.getEmail();
@@ -84,8 +84,10 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        final List<ListItem> listItems;
 
-        String url = "http://10.0.2.2:3000/mockFeeds";
+
+        String url = "https://readershare.herokuapp.com/mock/feeds";
         listItems = new ArrayList<>();
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -93,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         JSONObject jsonObject;
-
+                        Gson gson = new Gson();
                         for(int i=0; i<response.length(); i++) {
                             try {
                                 jsonObject = response.getJSONObject(i);
@@ -110,9 +112,10 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d("error", e.getMessage());
                                 e.printStackTrace();
                             }
-                            adapter = new MyAdapter(listItems, getApplicationContext());
-                            recyclerView.setAdapter(adapter);
+
                         }
+                        adapter = new MyAdapter(listItems, getApplicationContext());
+                        recyclerView.setAdapter(adapter);
                     }
                 },
                 new Response.ErrorListener() {
