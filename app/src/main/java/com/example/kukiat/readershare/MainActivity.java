@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String uid = user.getEmail();
+            Log.i("uid" ,user.getUid().toString());
             mText.setText(uid);
             mButton.setText("SIGN OUT");
         }

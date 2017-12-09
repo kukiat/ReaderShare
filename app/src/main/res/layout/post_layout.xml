@@ -60,4 +60,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText4" />
+
+    <Button
+        android:id="@+id/uploadPic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload Image"
+        tools:layout_editor_absoluteX="59dp"
+        tools:layout_editor_absoluteY="35dp" />
 </android.support.constraint.ConstraintLayout>
