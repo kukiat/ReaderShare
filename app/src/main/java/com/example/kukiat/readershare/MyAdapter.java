@@ -1,22 +1,13 @@
 package com.example.kukiat.readershare;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
-
-import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -59,7 +50,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ConstraintLayout vListCard;
+//        public ConstraintLayout vListCard;
         public TextView vReviewTitle;
         public TextView vReviewContent;
         public TextView vReviewRating;
@@ -73,9 +64,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         public ViewHolder(View v) {
             super(v);
 //            vListCard = (ConstraintLayout) v.findViewById(R.id.listCard);
-            vReviewTitle = (TextView) v.findViewById(R.id.textView2);
-            vReviewContent = (TextView) v.findViewById(R.id.topic);
-            vReviewRating = (TextView) v.findViewById(R.id.textView);
+            vReviewTitle = (TextView) v.findViewById(R.id.title);
+            vReviewContent = (TextView) v.findViewById(R.id.content);
+            vReviewRating = (TextView) v.findViewById(R.id.rating);
 //            vReviewerImage = (ImageView) v.findViewById();
 //            vReviewImage = (ImageView) v.findViewById();
 //            vReviewerName = (TextView) v.findViewById(R.id.listCard);

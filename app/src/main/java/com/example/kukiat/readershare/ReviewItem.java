@@ -29,7 +29,6 @@ public class ReviewItem {
         this.timestamp = timestamp;
     }
 
-    public ReviewItem() {}
 
     public void seteId(String id) {
         this.id = id;
