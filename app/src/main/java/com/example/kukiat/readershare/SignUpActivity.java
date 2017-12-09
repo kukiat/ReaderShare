@@ -52,56 +52,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.fireBtn).setOnClickListener(this);
     }
 
-    public void signUpClick(View v) throws JSONException {
-
-        String URL = "https://readershare.herokuapp.com/register";
-        JSONObject jsonBody = new JSONObject();
-        jsonBody.put("email", email.getText().toString());
-        jsonBody.put("password", password.getText().toString());
-
-        final String requestBody = jsonBody.toString();
-        StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("Response", response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError err) {
-
-                        Log.d("Error.Response", err.getMessage());
-                    }
-                }
-        ) {
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                try {
-                    return requestBody == null ? null : requestBody.getBytes("utf-8");
-                } catch (UnsupportedEncodingException uee) {
-                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
-                    return null;
-                }
-            }
-            @Override
-            protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                String responseString = "";
-                if (response != null) {
-                    responseString = String.valueOf(response.statusCode);
-                }
-                return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-            }
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("Content-Type","application/json");
-                return params;
-            }
-        };
-        Volley.newRequestQueue(this).add(postRequest);
-    }
-
     @Override
     public void onClick(View view) {
         int i = view.getId();
@@ -109,6 +59,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             createFireBase();
         }
     }
+
     private boolean validateForm() {
         boolean valid = true;
 
@@ -130,30 +81,26 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         return valid;
     }
-    public void createFireBase(){
+
+    public void createFireBase() {
         if (!validateForm()) {
             return;
         }
         String mEmail = email.getText().toString();
         String mPassword = password.getText().toString();
         mAuth.createUserWithEmailAndPassword(mEmail, mPassword)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-//                            FirebaseUser user = mAuth.getCurrentUser();
-                            startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(SignUpActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                });
-
-
-
+                .addOnCompleteListener(this,
+                        new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+        //                            FirebaseUser user = mAuth.getCurrentUser();
+                                    startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                                } else {
+                                    Toast.makeText(SignUpActivity.this, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
     }
 }
