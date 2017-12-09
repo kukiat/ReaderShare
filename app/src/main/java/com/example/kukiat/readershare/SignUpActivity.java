@@ -48,6 +48,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.create_account_activity);
         email = findViewById(R.id.createMailField);
         password = findViewById(R.id.createPassFiled);
+        mAuth = FirebaseAuth.getInstance();
+        findViewById(R.id.fireBtn).setOnClickListener(this);
     }
 
     public void signUpClick(View v) throws JSONException {

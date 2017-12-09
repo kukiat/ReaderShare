@@ -2,6 +2,7 @@ package com.example.kukiat.readershare;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
 
     private TextView mText;
-
     private Button mButton;
     private FirebaseUser user;
 
