@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final List<ListItem> listItems;
 
-
         String url = "https://readershare.herokuapp.com/mock/feeds";
         listItems = new ArrayList<>();
 
@@ -125,6 +124,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         Volley.newRequestQueue(this).add(jsonObjectRequest);
-
     }
 }
