@@ -1,16 +1,20 @@
 package com.example.kukiat.readershare;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.File;
 
 /**
  * Created by kukiat on 11/13/2017 AD.
@@ -18,34 +22,40 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class PostActivity extends AppCompatActivity {
 
-    TextView uid;
-    FirebaseUser user;
-    Button btnUploadImage;
-    private static final int GALLERY_INTENT = 2;
+    private static int TAKE_PHOTO_REQUEST_CODE = 99;
+    Uri outputFileUri;
+    StorageReference storageReference;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_layout);
-        uid = findViewById(R.id.uid);
+    }
 
-        if(user != null){
-            uid.setText(user.getUid());
-        }
+    public void takePhoto(View v) {
+        File StorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera");
+        File file = new File(StorageDir.getPath() + File.separator + "test4.jpg");
+        outputFileUri = Uri.fromFile(file);
 
-        btnUploadImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, GALLERY_INTENT);
-            }
-        });
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+        Log.i("wdwd", outputFileUri.toString());
+        startActivityForResult(intent, TAKE_PHOTO_REQUEST_CODE);
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
+        if(requestCode == TAKE_PHOTO_REQUEST_CODE && resultCode == RESULT_OK) {
+            Uri xxx = intent.getData();
+            StorageReference path = storageReference.child("photo").child(xxx.getLastPathSegment());
+
+            path.putFile(xxx).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(getApplicationContext(), "upload success", Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 }

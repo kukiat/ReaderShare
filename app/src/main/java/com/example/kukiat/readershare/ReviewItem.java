@@ -10,14 +10,14 @@ public class ReviewItem {
     private String bookName;
     private String reviewerId;
     private String reviewContent;
-    private String reviewLike;
-    private String reviewRating;
+    private int reviewLike;
+    private int reviewRating;
     private String reviewTitle;
-    private String timestamp;
+    private int timestamp;
 
     public ReviewItem(String id, String bookImage, String bookName,
-                      String reviewerId, String reviewContent, String reviewLike,
-                      String reviewRating, String reviewTitle, String timestamp) {
+                      String reviewerId, String reviewContent, int reviewLike,
+                      int reviewRating, String reviewTitle, int timestamp) {
         this.id = id;
         this.bookImage = bookImage;
         this.bookName = bookName;
@@ -51,11 +51,11 @@ public class ReviewItem {
         this.reviewContent = reviewContent;
     }
 
-    public void setReviewLike(String reviewLike) {
+    public void setReviewLike(int reviewLike) {
         this.reviewLike = reviewLike;
     }
 
-    public void setReviewRating(String reviewRating) {
+    public void setReviewRating(int reviewRating) {
         this.reviewRating = reviewRating;
     }
 
@@ -63,7 +63,7 @@ public class ReviewItem {
         this.reviewTitle = reviewTitle;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(int timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -87,11 +87,11 @@ public class ReviewItem {
         return reviewContent;
     }
 
-    public String getReviewLike() {
+    public int getReviewLike() {
         return reviewLike;
     }
 
-    public String getReviewRating() {
+    public int getReviewRating() {
         return reviewRating;
     }
 
@@ -99,7 +99,7 @@ public class ReviewItem {
         return reviewTitle;
     }
 
-    public String getTimestamp() {
+    public int getTimestamp() {
         return timestamp;
     }
 }

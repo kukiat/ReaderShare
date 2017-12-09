@@ -16,8 +16,11 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by kukiat on 11/6/2017 AD.
@@ -25,11 +28,11 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
-    private List<ListItem> listItems;
+    private List<ReviewItem> reviewItems;
     private Context context;
 
-    public MyAdapter(List<ListItem> listItems, Context context) {
-        this.listItems = listItems;
+    public MyAdapter(List<ReviewItem> reviewItems, Context context) {
+        this.reviewItems = reviewItems;
         this.context = context;
     }
 
@@ -41,43 +44,44 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final ListItem listItem = listItems.get(position);
+        final ReviewItem reviewItem = reviewItems.get(position);
 
-        holder.vTopic.setText(listItem.getTopic());
-        holder.vName.setText(listItem.getName());
-        holder.vRating.setText(listItem.getRating());
-        Log.i("book",listItem.getBook().toString());
-        Picasso.with(context).load(listItem.getBook()).resize(230, 200).into(holder.vBook);
+        holder.vReviewTitle.setText(reviewItem.getReviewTitle());
+        holder.vReviewContent.setText(reviewItem.getReviewContent().substring(0, 50)+"...");
+        holder.vReviewRating.setText(String.valueOf(reviewItem.getReviewRating())+" /10");
 
-        holder.vListCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ShowActivity.class);
-                intent.putExtra("id", listItem.getId());
-                context.startActivity(intent);
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
-        return listItems.size();
+        return reviewItems.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView vName;
-        public TextView vTopic;
-        public TextView vRating;
-        public ImageView vBook;
+
         public ConstraintLayout vListCard;
+        public TextView vReviewTitle;
+        public TextView vReviewContent;
+        public TextView vReviewRating;
+        public CircleImageView vReviewerImage;
+        public ImageView vReviewImage;
+        public TextView vReviewerName;
+        public TextView vCreatedAt;
+        public ImageView vSubscribe;
+        public ImageView vBookmark;
 
         public ViewHolder(View v) {
             super(v);
-            vName = (TextView) v.findViewById(R.id.name);
-            vRating = (TextView) v.findViewById(R.id.rating);
-            vTopic = (TextView) v.findViewById(R.id.topic);
-            vBook = (ImageView) v.findViewById(R.id.picName);
-            vListCard = (ConstraintLayout) v.findViewById(R.id.listCard);
+//            vListCard = (ConstraintLayout) v.findViewById(R.id.listCard);
+            vReviewTitle = (TextView) v.findViewById(R.id.textView2);
+            vReviewContent = (TextView) v.findViewById(R.id.topic);
+            vReviewRating = (TextView) v.findViewById(R.id.textView);
+//            vReviewerImage = (ImageView) v.findViewById();
+//            vReviewImage = (ImageView) v.findViewById();
+//            vReviewerName = (TextView) v.findViewById(R.id.listCard);
+//            vCreatedAt = (TextView) v.findViewById(R.id.);
+//            vSubscribe = (ImageView) v.findViewById();
+//            vBookmark = (ImageView) v.findViewById();
         }
     }
 }

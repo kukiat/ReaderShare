@@ -16,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -85,45 +86,51 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        final List<ListItem> listItems;
+        final List<ReviewItem> reviewItemList = new ArrayList<>();
+        String url = "https://readershare.herokuapp.com/feeds";
 
-        String url = "https://readershare.herokuapp.com/mock/feeds";
-        listItems = new ArrayList<>();
-
-        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
-                        JSONObject jsonObject;
-                        Gson gson = new Gson();
-                        for(int i=0; i<response.length(); i++) {
-                            try {
-                                jsonObject = response.getJSONObject(i);
-                                int id = jsonObject.getInt("id");
-                                String name = jsonObject.getString("name");
-                                String topic = jsonObject.getString("topic");
-                                String rating = jsonObject.getString("rating");
-                                String book = jsonObject.getString("image");
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray result = response.getJSONArray("result");
+                            for(int i=0; i<result.length(); i++) {
+                                JSONObject jsonReview = result.getJSONObject(i);
+                                JSONObject book = jsonReview.getJSONObject("book");
+                                JSONObject review = jsonReview.getJSONObject("review");
+                                JSONObject reviewer = jsonReview.getJSONObject("reviewer");
 
-                                ListItem ls = new ListItem(id, name, topic, rating, book);
-                                listItems.add(ls);
+                                String id = jsonReview.getString("id");
+                                String bookImage = book.getString("image");
+                                String bookName = book.getString("name");
+                                String reviewerId = reviewer.getString("id");
+                                String reviewContent = review.getString("content");
+                                String reviewTitle = review.getString("title");
+                                int reviewLike = review.getInt("like");
+                                int reviewRating = review.getInt("rating");
+                                int createdAt = jsonReview.getInt("createdAt");
 
-                            } catch (JSONException e) {
-                                Log.d("error", e.getMessage());
-                                e.printStackTrace();
+                                ReviewItem reviewItem = new ReviewItem(id, bookImage, bookName,
+                                        reviewerId, reviewContent, reviewLike,
+                                        reviewRating, reviewTitle,createdAt);
+
+                                reviewItemList.add(reviewItem);
                             }
-
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        adapter = new MyAdapter(listItems, getApplicationContext());
+                        adapter = new MyAdapter(reviewItemList, getApplicationContext());
                         recyclerView.setAdapter(adapter);
+
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError err) {
-
+                    public void onErrorResponse(VolleyError err){
                     }
                 });
+
         Volley.newRequestQueue(this).add(jsonObjectRequest);
     }
 }
