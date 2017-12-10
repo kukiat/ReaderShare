@@ -51,13 +51,13 @@ public class ShowActivity extends AppCompatActivity {
                         try {
 //                            int id = response.getInt("id");
 
-                            tvDescription = (TextView) findViewById(R.id.desc);
+                            tvDescription = (TextView) findViewById(R.id.review_content_show);
                             tvDescription.setText(response.getString("description"));
 
-                            tvName = (TextView) findViewById(R.id.listTopic);
+                            tvName = (TextView) findViewById(R.id.review_title_show);
                             tvName.setText(response.getString("topic"));
 
-                            tvTopic = (TextView) findViewById(R.id.listName);
+                            tvTopic = (TextView) findViewById(R.id.reviewer_name_show);
                             tvTopic.setText(response.getString("name"));
                             Log.i("bookss",response.getString("imageName"));
 //                            Picasso.with(getBaseContext()).load(response.getString("imageName")).resize(150, 150).error(R.drawable.blurbook).into(ivPicName);

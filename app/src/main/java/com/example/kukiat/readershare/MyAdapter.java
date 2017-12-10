@@ -17,8 +17,6 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 /**
  * Created by kukiat on 11/6/2017 AD.
  */
@@ -99,7 +97,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             vReviewRating = (TextView) v.findViewById(R.id.review_rating);
             vReviewerImage = (ImageView) v.findViewById(R.id.reviewer_image);
             vReviewImage = (ImageView) v.findViewById(R.id.review_image);
-            vReviewerName = (TextView) v.findViewById(R.id.reviewer_name);
+            vReviewerName = (TextView) v.findViewById(R.id.reviewer_name_show);
             vCreatedAt = (TextView) v.findViewById(R.id.review_create_at);
             vBookmark = (ImageView) v.findViewById(R.id.bookmark);
         }

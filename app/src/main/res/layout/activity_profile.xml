@@ -58,7 +58,7 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/reviewer_view"
+        android:id="@+id/reviewer_list_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
