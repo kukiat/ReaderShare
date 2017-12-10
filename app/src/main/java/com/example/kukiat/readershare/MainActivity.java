@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        user = FirebaseAuth.getInstance().getCurrentUser();
         switch (item.getItemId()) {
             case R.id.edit_profile_menu: {
                 Intent intent = new Intent(getBaseContext(), EditProfileActivity.class);
@@ -82,7 +83,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.logout: {
                 FirebaseAuth.getInstance().signOut();
+                Toast.makeText(MainActivity.this, "Logout Success",
+                        Toast.LENGTH_SHORT).show();
                 clearMenu();
+
                 break;
             }
             case R.id.signIn: {
