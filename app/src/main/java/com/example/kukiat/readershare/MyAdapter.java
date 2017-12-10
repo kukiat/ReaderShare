@@ -59,6 +59,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                 context.startActivity(intent);
             }
         });
+
+        holder.vBookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("click","subscribe");
+            }
+        });
     }
 
     public String getDate(int timestamp) {
