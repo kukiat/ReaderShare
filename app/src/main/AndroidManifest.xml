@@ -30,12 +30,15 @@
         <activity android:name=".PostActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".SignUpActivity">
 
         </activity>
+        <activity android:name=".EditProfileActivity"/>
+        <activity android:name=".ProfileActivity"/>
+        <activity android:name=".BookmarkActivity"/>
         <service android:name=".NotificationService" />
     </application>
 

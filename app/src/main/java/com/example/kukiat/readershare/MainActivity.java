@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                                 String bookImage = book.getString("image");
                                 String bookName = book.getString("name");
                                 String reviewerId = reviewer.getString("id");
+                                String reviewerEmail = reviewer.getString("email");
                                 String reviewContent = review.getString("content");
                                 String reviewTitle = review.getString("title");
                                 int reviewLike = review.getInt("like");
@@ -136,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 ReviewItem reviewItem = new ReviewItem(id, bookImage, bookName,
                                         reviewerId, reviewContent, reviewLike,
-                                        reviewRating, reviewTitle,createdAt);
+                                        reviewRating, reviewTitle, createdAt, reviewerEmail);
 
                                 reviewItemList.add(reviewItem);
                             }
