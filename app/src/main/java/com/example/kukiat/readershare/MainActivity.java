@@ -10,12 +10,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     View headerView;
     private Menu menu;
     TextView vCurrentEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +57,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fetchData();
         toggleTab();
         clearMenu();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(mToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.edit_profile_menu: {
+                Intent intent = new Intent(getBaseContext(), EditProfileActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.bookmark_menu: {
+                Intent intent = new Intent(getBaseContext(), BookmarkActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.logout: {
+                FirebaseAuth.getInstance().signOut();
+                clearMenu();
+                break;
+            }
+            case R.id.signIn: {
+                Intent intent = new Intent(getBaseContext(), LogInActivity.class);
+                startActivity(intent);
+                break;
+            }
+        }
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     public void clearMenu() {
@@ -87,14 +121,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(mToggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public void goPost(View v) {
@@ -165,31 +191,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Volley.newRequestQueue(this).add(jsonObjectRequest);
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.edit_profile_menu: {
-                Intent intent = new Intent(getBaseContext(), EditProfileActivity.class);
-                startActivity(intent);
-                break;
-            }
-            case R.id.bookmark_menu: {
-                Intent intent = new Intent(getBaseContext(), BookmarkActivity.class);
-                startActivity(intent);
-                break;
-            }
-            case R.id.logout: {
-                FirebaseAuth.getInstance().signOut();
-                clearMenu();
-                break;
-            }
-            case R.id.signIn: {
-                Intent intent = new Intent(getBaseContext(), LogInActivity.class);
-                startActivity(intent);
-                break;
-            }
-        }
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
 }

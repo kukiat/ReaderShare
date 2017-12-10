@@ -16,6 +16,7 @@
         android:id="@+id/current_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Kukiat"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_marginTop="5dp"/>
@@ -23,6 +24,7 @@
         android:id="@+id/current_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="kukiat123@hotmail.com"
         android:textColor="@color/white"/>
 
 </LinearLayout>
