@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
-    private DrawerLayout mDrawerLayout;
-    private android.support.v7.app.ActionBarDrawerToggle mToggle;
 
     private TextView mText;
     private Button mButton;
@@ -53,12 +51,7 @@ public class MainActivity extends AppCompatActivity {
         mButton = findViewById(R.id.buttonSignIn);
         fetchData();
 
-        mDrawerLayout = findViewById(R.id.drawerLayout);
-        mToggle = new android.support.v7.app.ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -69,15 +62,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (mToggle.onOptionsItemSelected(item)){
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public void goLogIn(View v) {
         if (mButton.getText().toString() == "SIGN OUT"){
