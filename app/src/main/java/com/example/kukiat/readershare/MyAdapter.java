@@ -62,10 +62,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         }else {
             holder.vReviewerName.setText(reviewItem.getReviewerName());
         }
+        if(reviewItem.getReviewerImage().isEmpty()){
+            Picasso.with(context).load("https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg").into(holder.vReviewerImage);
+        }else{
+            Picasso.with(context).load(reviewItem.getReviewerImage()).into(holder.vReviewerImage);
+        }
         holder.vBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i("click","subscribe");
+            }
+        });
+        holder.vReviewerImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProfileActivity.class);
+                context.startActivity(intent);
             }
         });
     }
@@ -99,7 +111,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             vReviewTitle = (TextView) v.findViewById(R.id.review_title);
             vReviewContent = (TextView) v.findViewById(R.id.review_content);
             vReviewRating = (TextView) v.findViewById(R.id.review_rating);
-            vReviewerImage = (CircleImageView) v.findViewById(R.id.profile_image);
+            vReviewerImage = (CircleImageView) v.findViewById(R.id.reviewer_image);
             vReviewImage = (ImageView) v.findViewById(R.id.review_image);
             vReviewerName = (TextView) v.findViewById(R.id.reviewer_name_show);
             vCreatedAt = (TextView) v.findViewById(R.id.review_create_at);
