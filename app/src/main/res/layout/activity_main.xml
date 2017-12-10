@@ -7,12 +7,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.kukiat.readershare.MainActivity">
 
-    <Button
-        android:id="@+id/buttonSignIn"
-        android:layout_width="110dp"
-        android:layout_height="45dp"
-        android:onClick="goLogIn"
-        android:text="sign in"/>
+    <!--<Button-->
+        <!--android:id="@+id/buttonSignIn"-->
+        <!--android:layout_width="110dp"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:onClick="goLogIn"-->
+        <!--android:text="sign in"/>-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/view"
@@ -50,6 +50,7 @@
         app:srcCompat="@drawable/ic_create_white_24dp" />
 
     <android.support.design.widget.NavigationView
+        android:id="@+id/navigation_view"
         app:headerLayout="@layout/header"
         app:menu="@menu/drawer_menu"
         android:layout_width="wrap_content"

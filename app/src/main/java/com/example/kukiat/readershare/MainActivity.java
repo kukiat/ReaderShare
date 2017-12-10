@@ -2,11 +2,13 @@ package com.example.kukiat.readershare;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -37,21 +39,36 @@ public class MainActivity extends AppCompatActivity {
     private TextView mText;
     private Button mButton;
     private FirebaseUser user;
+
+    private NavigationView vNavigationView;
+    private Menu menu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startService(new Intent(MainActivity.this, NotificationService.class));
         mText = findViewById(R.id.fireId);
-        mButton = findViewById(R.id.buttonSignIn);
+//        mButton = findViewById(R.id.buttonSignIn);
+        vNavigationView = findViewById(R.id.navigation_view);
+        menu = vNavigationView.getMenu();
         fetchData();
         toggleTab();
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user != null) { //ลอกอินแล้ว
+            menu.findItem(R.id.edit_profile_menu).setVisible(true);
+            menu.findItem(R.id.bookmark_menu).setVisible(true);
+            menu.findItem(R.id.logout).setVisible(true);
+            menu.findItem(R.id.signIn).setVisible(false);
+            menu.findItem(R.id.edit_profile_menu).setOnMenuItemClickListener(new View.o)
             String uid = user.getEmail();
             mText.setText(uid);
-            mButton.setText("SIGN OUT");
+//            mButton.setText("SIGN OUT");
+        }else{
+            menu.findItem(R.id.edit_profile_menu).setVisible(false);
+            menu.findItem(R.id.bookmark_menu).setVisible(false);
+            menu.findItem(R.id.logout).setVisible(false);
+            menu.findItem(R.id.signIn).setVisible(true);
         }
     }
 
@@ -72,10 +89,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goLogIn(View v) {
-        if (mButton.getText().toString() == "SIGN OUT"){
+        if (user != null){
             FirebaseAuth.getInstance().signOut();
-            mButton.setText("SIGN IN");
-            mText.setText("not login");
         }else {
             Intent intent = new Intent(getBaseContext(), LogInActivity.class);
             startActivity(intent);
