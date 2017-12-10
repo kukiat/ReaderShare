@@ -84,6 +84,7 @@ public class ShowActivity extends AppCompatActivity {
                             int reviewRating = review.getInt("rating");
 
                             String reviewerName = reviewer.getString("name");
+                            String reviewerEmail = reviewer.getString("email");
                             String reviewerImage = reviewer.getString("image");
 //
                             String bookImage = book.getString("image");
@@ -92,7 +93,11 @@ public class ShowActivity extends AppCompatActivity {
                             vReviewTitleShow.setText(reviewTitle);
                             vReviewContentShow.setText(reviewContent);
                             vReviewLikeShow.setText(String.valueOf(reviewLike));
-                            vReviewerName.setText(reviewerName);
+                            if(reviewerName.isEmpty()) {
+                                vReviewerName.setText(reviewerEmail);
+                            }else {
+                                vReviewerName.setText(reviewerName);
+                            }
                             if(reviewerImage.isEmpty()){
                                 Picasso.with(getApplicationContext()).load("https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg").into(vReviewerImage);
                             }else{
