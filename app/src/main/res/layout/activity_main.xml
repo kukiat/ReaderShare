@@ -59,4 +59,5 @@
         app:itemIconTint="@color/darkgray"
         android:layout_gravity="start" >
     </android.support.design.widget.NavigationView>
+
 </android.support.v4.widget.DrawerLayout>
