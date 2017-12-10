@@ -2,14 +2,17 @@ package com.example.kukiat.readershare;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,32 +31,32 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mToggle;
 
     private FirebaseUser user;
+
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
+    private NavigationView vNavigationView;
+    View headerView;
+    private Menu menu;
+    TextView vCurrentEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setNavigationViewListener();
         startService(new Intent(MainActivity.this, NotificationService.class));
-
+        vNavigationView = (NavigationView) findViewById(R.id.navigation_view);
+        menu = vNavigationView.getMenu();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         fetchData();
         toggleTab();
-
-
-    }
-
-    public void toggleTab() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        clearMenu();
     }
 
     @Override
@@ -63,18 +66,62 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-//
-//    public void goLogIn(View v) {
-//        user = FirebaseAuth.getInstance().getCurrentUser();
-//        if (mButton.getText().toString() == "SIGN OUT"){
-//            FirebaseAuth.getInstance().signOut();
-//            mButton.setText("SIGN IN");
-//            mText.setText("not login");
-//        }else {
-//            Intent intent = new Intent(getBaseContext(), LogInActivity.class);
-//            startActivity(intent);
-//        }
-//    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.edit_profile_menu: {
+                Intent intent = new Intent(getBaseContext(), EditProfileActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.bookmark_menu: {
+                Intent intent = new Intent(getBaseContext(), BookmarkActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.logout: {
+                FirebaseAuth.getInstance().signOut();
+                clearMenu();
+                break;
+            }
+            case R.id.signIn: {
+                Intent intent = new Intent(getBaseContext(), LogInActivity.class);
+                startActivity(intent);
+                break;
+            }
+        }
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    public void clearMenu() {
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            menu.findItem(R.id.edit_profile_menu).setVisible(true);
+            menu.findItem(R.id.bookmark_menu).setVisible(true);
+            menu.findItem(R.id.logout).setVisible(true);
+            menu.findItem(R.id.signIn).setVisible(false);
+        }else{
+            menu.findItem(R.id.edit_profile_menu).setVisible(false);
+            menu.findItem(R.id.bookmark_menu).setVisible(false);
+            menu.findItem(R.id.logout).setVisible(false);
+            menu.findItem(R.id.signIn).setVisible(true);
+        }
+
+    }
+    private void setNavigationViewListener() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    public void toggleTab() {
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
     public void goPost(View v) {
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -143,4 +190,5 @@ public class MainActivity extends AppCompatActivity {
 
         Volley.newRequestQueue(this).add(jsonObjectRequest);
     }
+
 }
