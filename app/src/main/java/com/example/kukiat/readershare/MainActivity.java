@@ -34,25 +34,18 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-    private TextView mText;
-    private Button mButton;
+
     private FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startService(new Intent(MainActivity.this, NotificationService.class));
-        mText = findViewById(R.id.fireId);
-        mButton = findViewById(R.id.buttonSignIn);
+
         fetchData();
         toggleTab();
-        user = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (user != null) { //ลอกอินแล้ว
-            String uid = user.getEmail();
-            mText.setText(uid);
-            mButton.setText("SIGN OUT");
-        }
+
     }
 
     public void toggleTab() {
@@ -70,17 +63,18 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public void goLogIn(View v) {
-        if (mButton.getText().toString() == "SIGN OUT"){
-            FirebaseAuth.getInstance().signOut();
-            mButton.setText("SIGN IN");
-            mText.setText("not login");
-        }else {
-            Intent intent = new Intent(getBaseContext(), LogInActivity.class);
-            startActivity(intent);
-        }
-    }
+//
+//    public void goLogIn(View v) {
+//        user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (mButton.getText().toString() == "SIGN OUT"){
+//            FirebaseAuth.getInstance().signOut();
+//            mButton.setText("SIGN IN");
+//            mText.setText("not login");
+//        }else {
+//            Intent intent = new Intent(getBaseContext(), LogInActivity.class);
+//            startActivity(intent);
+//        }
+//    }
 
     public void goPost(View v) {
         user = FirebaseAuth.getInstance().getCurrentUser();
