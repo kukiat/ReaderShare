@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.edit_profile_menu: {
                 Intent intent = new Intent(getBaseContext(), EditProfileActivity.class);
+                intent.putExtra("name", user.getDisplayName());
                 startActivity(intent);
                 break;
             }
@@ -86,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(MainActivity.this, "Logout Success",
                         Toast.LENGTH_SHORT).show();
                 clearMenu();
-
                 break;
             }
             case R.id.signIn: {
@@ -164,8 +165,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 String id = jsonReview.getString("id");
                                 String bookImage = book.getString("image");
                                 String bookName = book.getString("name");
+
                                 String reviewerId = reviewer.getString("id");
                                 String reviewerEmail = reviewer.getString("email");
+                                String reviewerImage = reviewer.getString("image");
+                                String reviewerName = reviewer.getString("name");
+
                                 String reviewContent = review.getString("content");
                                 String reviewTitle = review.getString("title");
                                 int reviewLike = review.getInt("like");
@@ -174,7 +179,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                 ReviewItem reviewItem = new ReviewItem(id, bookImage, bookName,
                                         reviewerId, reviewContent, reviewLike,
-                                        reviewRating, reviewTitle, createdAt, reviewerEmail);
+                                        reviewRating, reviewTitle, createdAt, reviewerEmail
+                                        ,reviewerImage, reviewerName);
 
                                 reviewItemList.add(reviewItem);
                             }

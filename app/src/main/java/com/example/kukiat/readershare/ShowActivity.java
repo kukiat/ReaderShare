@@ -37,6 +37,7 @@ public class ShowActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle != null) {
             int id = bundle.getInt("id");
+            Log.i("id", String.valueOf(id));
 //            fetchGetFeedData(id);
         }
     }
