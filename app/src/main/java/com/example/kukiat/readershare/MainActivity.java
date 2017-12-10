@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         vNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         menu = vNavigationView.getMenu();
         user = FirebaseAuth.getInstance().getCurrentUser();
-        Log.i("xxx",user.getDisplayName());
         fetchData();
         toggleTab();
         clearMenu();
@@ -75,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.edit_profile_menu: {
                 Intent intent = new Intent(getBaseContext(), EditProfileActivity.class);
+                intent.putExtra("name", user.getDisplayName());
                 startActivity(intent);
                 break;
             }
@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(MainActivity.this, "Logout Success",
                         Toast.LENGTH_SHORT).show();
                 clearMenu();
-
                 break;
             }
             case R.id.signIn: {
