@@ -41,12 +41,10 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if ( currentUser != null ) {
             startActivity(new Intent(LogInActivity.this, MainActivity.class));
         }
-
     }
 
     private void startSignIn() {
@@ -55,7 +53,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         }
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
-        Log.d("signIN2", email + password);
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -64,13 +61,9 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.i("Res", String.valueOf(task.isSuccessful()));
                         if (task.isSuccessful()) {
-
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("signIN3", "signInWithEmail:success");
                             startActivity(new Intent(LogInActivity.this, MainActivity.class));
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(LogInActivity.this, "Authentication failed.",
+                            Toast.makeText(LogInActivity.this, "Id or Password wrong.",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
