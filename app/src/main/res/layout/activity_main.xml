@@ -10,12 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <!--<Button-->
-        <!--android:id="@+id/buttonSignIn"-->
-        <!--android:layout_width="110dp"-->
-        <!--android:layout_height="45dp"-->
-        <!--android:onClick="goLogIn"-->
-        <!--android:text="sign in"/>-->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/view"
             android:layout_width="0dp"

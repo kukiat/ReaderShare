@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:id="@+id/header_layout"
     android:layout_width="match_parent"
     android:layout_height="160dp"
     android:background="@drawable/bg_menu_header"
@@ -15,7 +16,6 @@
         android:id="@+id/current_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kukiat"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_marginTop="5dp"/>
@@ -23,7 +23,6 @@
         android:id="@+id/current_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="kukiat123@hotmail.com"
         android:textColor="@color/white"/>
 
 </LinearLayout>
