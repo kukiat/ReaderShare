@@ -54,7 +54,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             public void onClick(View view) {
                 Intent intent = new Intent(context, ShowActivity.class);
                 intent.putExtra("reviewId", reviewItem.getId());
-                intent.putExtra("reviewerId", reviewItem.getReviewerId());
                 context.startActivity(intent);
             }
         });

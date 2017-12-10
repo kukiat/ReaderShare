@@ -3,6 +3,8 @@ package com.example.kukiat.readershare;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,21 +16,25 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kukiat on 11/6/2017 AD.
  */
 
 public class ShowActivity extends AppCompatActivity {
-    TextView tvName;
-    TextView tvTopic;
-    TextView tvDescription;
-    TextView tvRating;
-    ImageView ivPicName;
-    ImageView ivPicBook;
-
+    TextView vReviewTitleShow;
+    TextView vReviewContentShow;
+    TextView vReviewLikeShow;
+    RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    TextView vReviewerName;
+    ImageView vBookImageShow;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,34 +42,74 @@ public class ShowActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null) {
-            int id = bundle.getInt("id");
-            Log.i("id", String.valueOf(id));
-//            fetchGetFeedData(id);
+            Log.i("response","come");
+            String reviewId = bundle.getString("reviewId");
+            Log.i("id", String.valueOf(reviewId));
+            fetchGetFeedData(reviewId);
         }
     }
 
-    public void fetchGetFeedData(int id) {
-        String url = "https://readershare.herokuapp.com/mock/review/"+id;
+    public void fetchGetFeedData(String id) {
+        recyclerView = (RecyclerView) findViewById(R.id.recycle_comment);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        final List<CommentItem> listComment = new ArrayList<>();
+        String url = "https://readershare.herokuapp.com/review/"+id;
+        Log.i("response",url);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        vReviewTitleShow = (TextView) findViewById(R.id.review_title_show);
+                        vReviewContentShow = (TextView) findViewById(R.id.review_content_show);
+                        vReviewLikeShow = (TextView) findViewById(R.id.review_like);
+                        vBookImageShow = (ImageView) findViewById(R.id.review_image_show);
+                        vReviewerName =(TextView) findViewById(R.id.reviewer_name_show);
+
+                        JSONObject result;
                         try {
-//                            int id = response.getInt("id");
+                            result = response.getJSONObject("result");
 
-                            tvDescription = (TextView) findViewById(R.id.review_content_show);
-                            tvDescription.setText(response.getString("description"));
+                            JSONObject review = result.getJSONObject("review");
+                            JSONObject reviewer = result.getJSONObject("reviewer");
+                            JSONObject book = result.getJSONObject("book");
+                            JSONArray comment = result.getJSONArray("comment");
 
-                            tvName = (TextView) findViewById(R.id.review_title_show);
-                            tvName.setText(response.getString("topic"));
+                            String reviewTitle = review.getString("title");
+                            String reviewContent = review.getString("content");
+                            int reviewLike = review.getInt("like");
+                            int reviewRating = review.getInt("rating");
 
-                            tvTopic = (TextView) findViewById(R.id.reviewer_name_show);
-                            tvTopic.setText(response.getString("name"));
-                            Log.i("bookss",response.getString("imageName"));
-//                            Picasso.with(getBaseContext()).load(response.getString("imageName")).resize(150, 150).error(R.drawable.blurbook).into(ivPicName);
-//                            Picasso.with(getBaseContext()).load(response.getString("imageBook")).resize(350,350).error(R.drawable.blurbook).into(ivPicBook);
+                            String reviewerName = reviewer.getString("name");
+//                            String reviewImage = review.getString("image");
+//
+                            String bookImage = book.getString("image");
+//                            String bookName = book.getString("name");
 
+                            vReviewTitleShow.setText(reviewTitle);
+                            vReviewContentShow.setText(reviewContent);
+                            vReviewLikeShow.setText(String.valueOf(reviewLike));
+                            vReviewerName.setText(reviewerName);
+                            Picasso.with(getApplicationContext()).load(bookImage).into(vBookImageShow);
+
+                            for(int i=0; i<comment.length(); i++){
+                                JSONObject _comment = comment.getJSONObject(i);
+                                String commentContent = _comment.getString("commentContent");
+                                String commentId = _comment.getString("id");
+                                JSONObject commenter = _comment.getJSONObject("commenter");
+
+                                String commentName = commenter.getString("name");
+
+                                CommentItem commentItem = new CommentItem(commentId,
+                                        commentContent,
+                                        commentName,
+                                        "https://assets.mubi.com/images/cast_member/120177/image-original.jpg?1488253454",
+                                        1111111111);
+                                listComment.add(commentItem);
+                            }
+                            adapter = new CommentAdapter(listComment, getApplicationContext());
+                            recyclerView.setAdapter(adapter);
 
 
                         }catch (JSONException e) {

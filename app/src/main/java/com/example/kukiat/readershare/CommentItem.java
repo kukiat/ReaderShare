@@ -7,22 +7,25 @@ package com.example.kukiat.readershare;
 public class CommentItem {
     private String id;
     private String commentContent;
-    private String commentUserName;
-    private String commentUserId;
-    private int commentLike;
+    private String commentName;
+    private String commentUserImage;
     private int commentTimestamp;
-    private String commentUserEmail;
 
-    public CommentItem(String id, String commentContent, String commentUserName,
-                       String commentUserId, int commentLike, int commentTimestamp,
-                       String commentUserEmail) {
+    public CommentItem(String id, String commentContent, String commentName,
+                       String commentUserImage, int commentTimestamp) {
         this.id = id;
         this.commentContent = commentContent;
-        this.commentUserName = commentUserName;
-        this.commentUserId = commentUserId;
-        this.commentLike = commentLike;
+        this.commentName = commentName;
+        this.commentUserImage = commentUserImage;
         this.commentTimestamp = commentTimestamp;
-        this.commentUserEmail = commentUserEmail;
+    }
+
+    public String getCommentUserImage() {
+        return commentUserImage;
+    }
+
+    public void setCommentUserImage(String commentUserImage) {
+        this.commentUserImage = commentUserImage;
     }
 
     public String getId() {
@@ -41,28 +44,12 @@ public class CommentItem {
         this.commentContent = commentContent;
     }
 
-    public String getCommentUserName() {
-        return commentUserName;
+    public String getCommentName() {
+        return commentName;
     }
 
-    public void setCommentUserName(String commentUserName) {
-        this.commentUserName = commentUserName;
-    }
-
-    public String getCommentUserId() {
-        return commentUserId;
-    }
-
-    public void setCommentUserId(String commentUserId) {
-        this.commentUserId = commentUserId;
-    }
-
-    public int getCommentLike() {
-        return commentLike;
-    }
-
-    public void setCommentLike(int commentLike) {
-        this.commentLike = commentLike;
+    public void setCommentName(String commentUserName) {
+        this.commentName = commentUserName;
     }
 
     public int getCommentTimestamp() {
@@ -73,11 +60,4 @@ public class CommentItem {
         this.commentTimestamp = commentTimestamp;
     }
 
-    public String getCommentUserEmail() {
-        return commentUserEmail;
-    }
-
-    public void setCommentUserEmail(String commentUserEmail) {
-        this.commentUserEmail = commentUserEmail;
-    }
 }

@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.w3c.dom.Comment;
 
 import java.util.List;
@@ -39,6 +41,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         final CommentItem commentItem = commentItems.get(position);
 
+        holder.vCommentContent.setText(commentItem.getCommentContent());
+        holder.vCommentUserName.setText(commentItem.getCommentName());
+        holder.vComentCreatedAt.setText(String.valueOf(commentItem.getCommentTimestamp()));
+        Picasso.with(context).load(commentItem.getCommentUserImage()).into(holder.vCommentUserImage);
     }
 
     @Override
@@ -52,8 +58,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         public CircleImageView vCommentUserImage;
         public TextView vCommentUserName;
         public TextView vComentCreatedAt;
-        public TextView vCommentLike;
-        public ImageButton vCommentLikeBtn;
 
         public ViewHolder(View v) {
             super(v);
@@ -62,8 +66,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             vCommentUserImage = v.findViewById(R.id.comment_image);
             vCommentUserName = v.findViewById(R.id.comment_user_name);
             vComentCreatedAt = v.findViewById(R.id.comment_create_at);
-            vCommentLike = v.findViewById(R.id.comment_like);
-            vCommentLikeBtn = v.findViewById(R.id.comment_like_btn);
         }
     }
 }
