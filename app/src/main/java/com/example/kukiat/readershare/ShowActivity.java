@@ -1,6 +1,7 @@
 package com.example.kukiat.readershare;
 
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,6 +34,7 @@ public class ShowActivity extends AppCompatActivity {
     TextView vReviewLikeShow;
     RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
+    ImageView vReviewerImage;
     TextView vReviewerName;
     ImageView vBookImageShow;
     @Override
@@ -66,7 +68,7 @@ public class ShowActivity extends AppCompatActivity {
                         vReviewLikeShow = (TextView) findViewById(R.id.review_like);
                         vBookImageShow = (ImageView) findViewById(R.id.review_image_show);
                         vReviewerName =(TextView) findViewById(R.id.reviewer_name_show);
-
+                        vReviewerImage = (ImageView) findViewById(R.id.reviewer_image_show);
                         JSONObject result;
                         try {
                             result = response.getJSONObject("result");
@@ -82,7 +84,7 @@ public class ShowActivity extends AppCompatActivity {
                             int reviewRating = review.getInt("rating");
 
                             String reviewerName = reviewer.getString("name");
-//                            String reviewImage = review.getString("image");
+                            String reviewerImage = reviewer.getString("image");
 //
                             String bookImage = book.getString("image");
 //                            String bookName = book.getString("name");
@@ -91,6 +93,11 @@ public class ShowActivity extends AppCompatActivity {
                             vReviewContentShow.setText(reviewContent);
                             vReviewLikeShow.setText(String.valueOf(reviewLike));
                             vReviewerName.setText(reviewerName);
+                            if(reviewerImage.isEmpty()){
+                                Picasso.with(getApplicationContext()).load("https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg").into(vReviewerImage);
+                            }else{
+                                Picasso.with(getApplicationContext()).load(reviewerImage).into(vReviewerImage);
+                            }
                             Picasso.with(getApplicationContext()).load(bookImage).into(vBookImageShow);
 
                             for(int i=0; i<comment.length(); i++){
@@ -105,7 +112,7 @@ public class ShowActivity extends AppCompatActivity {
                                         commentContent,
                                         commentName,
                                         "https://assets.mubi.com/images/cast_member/120177/image-original.jpg?1488253454",
-                                        1111111111);
+                                        1231241);
                                 listComment.add(commentItem);
                             }
                             adapter = new CommentAdapter(listComment, getApplicationContext());

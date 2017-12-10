@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ocpsoft.pretty.time.PrettyTime;
 import com.squareup.picasso.Picasso;
 
 import java.sql.Timestamp;
@@ -48,7 +49,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         holder.vReviewRating.setText(String.valueOf(reviewItem.getReviewRating())+" /10");
         Picasso.with(context).load(reviewItem.getBookImage()).into(holder.vReviewImage);
         holder.vReviewerName.setText(reviewItem.getReviewerEmail());
-        holder.vCreatedAt.setText(String.valueOf(reviewItem.getTimestamp()));
+        holder.vCreatedAt.setText(getDate(reviewItem.getTimestamp()));
         holder.vReviewImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +74,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                 Log.i("click","subscribe");
             }
         });
+
         holder.vReviewerImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,9 +85,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     }
 
     public String getDate(int timestamp) {
-        Timestamp ts = new Timestamp((timestamp));
-        Date date = new Date(ts.getTime());
-        return "xxxxx";
+        Timestamp stamp = new Timestamp(timestamp);
+        if(stamp.getTime() < 86400000){
+            Date date = new Date(stamp.getTime());
+            PrettyTime p = new PrettyTime();
+            return p.format(date);
+        }else{
+            Date date = new Date(stamp.getTime());
+            int year = date.getYear()+1947;
+            int day = date.getDate()-2;
+            int month = date.getMonth()+12==12?12:(date.getMonth()+12)%12;
+            String data = String.valueOf(day)+"/"+String.valueOf(month)+"/"+ String.valueOf(year);
+            return data;
+        }
     }
 
     @Override
