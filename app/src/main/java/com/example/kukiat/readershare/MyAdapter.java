@@ -47,7 +47,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         Picasso.with(context).load(reviewItem.getBookImage()).into(holder.vReviewImage);
         holder.vReviewerName.setText(reviewItem.getReviewerEmail());
         holder.vCreatedAt.setText(String.valueOf(reviewItem.getTimestamp()));
-
         holder.vReviewImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +56,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                 context.startActivity(intent);
             }
         });
-
+        if(reviewItem.getReviewerName().isEmpty()) {
+            holder.vReviewerName.setText(reviewItem.getReviewerEmail());
+        }else {
+            holder.vReviewerName.setText(reviewItem.getReviewerName());
+        }
         holder.vBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

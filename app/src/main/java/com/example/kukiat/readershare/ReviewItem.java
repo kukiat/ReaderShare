@@ -15,18 +15,13 @@ public class ReviewItem {
     private String reviewTitle;
     private int timestamp;
     private String reviewerEmail;
-
-    public String getReviewerEmail() {
-        return reviewerEmail;
-    }
-
-    public void setReviewerEmail(String reviewerEmail) {
-        this.reviewerEmail = reviewerEmail;
-    }
+    private String reviewerImage;
+    private String reviewerName;
 
     public ReviewItem(String id, String bookImage, String bookName,
                       String reviewerId, String reviewContent, int reviewLike,
-                      int reviewRating, String reviewTitle, int timestamp, String reviewerEmail) {
+                      int reviewRating, String reviewTitle, int timestamp,
+                      String reviewerEmail, String reviewerImage, String reviewerName) {
         this.id = id;
         this.bookImage = bookImage;
         this.bookName = bookName;
@@ -37,9 +32,36 @@ public class ReviewItem {
         this.reviewRating = reviewRating;
         this.reviewTitle = reviewTitle;
         this.timestamp = timestamp;
+
+        this.reviewerEmail = reviewerEmail;
+        this.reviewerImage = reviewerImage;
+        this.reviewerName = reviewerName;
+    }
+
+
+    public String getReviewerEmail() {
+        return reviewerEmail;
+    }
+
+    public void setReviewerEmail(String reviewerEmail) {
         this.reviewerEmail = reviewerEmail;
     }
 
+    public String getReviewerImage() {
+        return reviewerImage;
+    }
+
+    public void setReviewerImage(String reviewerImage) {
+        this.reviewerImage = reviewerImage;
+    }
+
+    public String getReviewerName() {
+        return reviewerName;
+    }
+
+    public void setReviewerName(String reviewerName) {
+        this.reviewerName = reviewerName;
+    }
 
     public void setId(String id) {
         this.id = id;

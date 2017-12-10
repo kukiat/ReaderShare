@@ -165,8 +165,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 String id = jsonReview.getString("id");
                                 String bookImage = book.getString("image");
                                 String bookName = book.getString("name");
+
                                 String reviewerId = reviewer.getString("id");
                                 String reviewerEmail = reviewer.getString("email");
+                                String reviewerImage = reviewer.getString("image");
+                                String reviewerName = reviewer.getString("name");
+
                                 String reviewContent = review.getString("content");
                                 String reviewTitle = review.getString("title");
                                 int reviewLike = review.getInt("like");
@@ -175,7 +179,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                 ReviewItem reviewItem = new ReviewItem(id, bookImage, bookName,
                                         reviewerId, reviewContent, reviewLike,
-                                        reviewRating, reviewTitle, createdAt, reviewerEmail);
+                                        reviewRating, reviewTitle, createdAt, reviewerEmail
+                                        ,reviewerImage, reviewerName);
 
                                 reviewItemList.add(reviewItem);
                             }
