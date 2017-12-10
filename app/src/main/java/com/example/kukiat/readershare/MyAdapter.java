@@ -17,6 +17,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by kukiat on 11/6/2017 AD.
  */
@@ -86,7 +88,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         public TextView vReviewTitle;
         public TextView vReviewContent;
         public TextView vReviewRating;
-        public ImageView vReviewerImage;
+        public CircleImageView vReviewerImage;
         public ImageView vReviewImage;
         public TextView vReviewerName;
         public TextView vCreatedAt;
@@ -98,7 +100,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             vReviewTitle = (TextView) v.findViewById(R.id.review_title);
             vReviewContent = (TextView) v.findViewById(R.id.review_content);
             vReviewRating = (TextView) v.findViewById(R.id.review_rating);
-            vReviewerImage = (ImageView) v.findViewById(R.id.reviewer_image);
+            vReviewerImage = (CircleImageView) v.findViewById(R.id.reviewer_image);
             vReviewImage = (ImageView) v.findViewById(R.id.review_image);
             vReviewerName = (TextView) v.findViewById(R.id.reviewer_name_show);
             vCreatedAt = (TextView) v.findViewById(R.id.review_create_at);
