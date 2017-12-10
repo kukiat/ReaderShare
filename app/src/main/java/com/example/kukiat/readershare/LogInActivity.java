@@ -31,7 +31,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
-        mEmailField = findViewById(R.id.email);
+        mEmailField = findViewById(R.id.profile_email);
         mPasswordField = findViewById(R.id.password);
 
         findViewById(R.id.signInBtn).setOnClickListener(this);
