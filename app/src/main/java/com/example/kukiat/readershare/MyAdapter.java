@@ -3,12 +3,17 @@ package com.example.kukiat.readershare;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -40,7 +45,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         holder.vReviewTitle.setText(reviewItem.getReviewTitle());
         holder.vReviewContent.setText(reviewItem.getReviewContent().substring(0, 50)+"...");
         holder.vReviewRating.setText(String.valueOf(reviewItem.getReviewRating())+" /10");
+        Picasso.with(context).load(reviewItem.getBookImage()).into(holder.vReviewImage);
+        holder.vCreatedAt.setText(String.valueOf(reviewItem.getTimestamp()));
+    }
 
+    public String getDate(int timestamp) {
+        Timestamp ts = new Timestamp((timestamp));
+        Date date = new Date(ts.getTime());
+        return "xxxxx";
     }
 
     @Override
@@ -50,29 +62,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-//        public ConstraintLayout vListCard;
+        public ConstraintLayout vListCard;
         public TextView vReviewTitle;
         public TextView vReviewContent;
         public TextView vReviewRating;
-        public CircleImageView vReviewerImage;
+        public ImageView vReviewerImage;
         public ImageView vReviewImage;
         public TextView vReviewerName;
         public TextView vCreatedAt;
-        public ImageView vSubscribe;
         public ImageView vBookmark;
 
         public ViewHolder(View v) {
             super(v);
-//            vListCard = (ConstraintLayout) v.findViewById(R.id.listCard);
-            vReviewTitle = (TextView) v.findViewById(R.id.title);
-            vReviewContent = (TextView) v.findViewById(R.id.content);
-            vReviewRating = (TextView) v.findViewById(R.id.rating);
-//            vReviewerImage = (ImageView) v.findViewById();
-//            vReviewImage = (ImageView) v.findViewById();
-//            vReviewerName = (TextView) v.findViewById(R.id.listCard);
-//            vCreatedAt = (TextView) v.findViewById(R.id.);
-//            vSubscribe = (ImageView) v.findViewById();
-//            vBookmark = (ImageView) v.findViewById();
+            vListCard = (ConstraintLayout) v.findViewById(R.id.listCard);
+            vReviewTitle = (TextView) v.findViewById(R.id.review_title);
+            vReviewContent = (TextView) v.findViewById(R.id.review_content);
+            vReviewRating = (TextView) v.findViewById(R.id.review_rating);
+            vReviewerImage = (ImageView) v.findViewById(R.id.reviewer_image);
+            vReviewImage = (ImageView) v.findViewById(R.id.review_image);
+            vReviewerName = (TextView) v.findViewById(R.id.reviewer_name);
+            vCreatedAt = (TextView) v.findViewById(R.id.review_create_at);
+            vBookmark = (ImageView) v.findViewById(R.id.bookmark);
         }
     }
 }
