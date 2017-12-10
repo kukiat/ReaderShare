@@ -99,7 +99,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             vReviewTitle = (TextView) v.findViewById(R.id.review_title);
             vReviewContent = (TextView) v.findViewById(R.id.review_content);
             vReviewRating = (TextView) v.findViewById(R.id.review_rating);
-            vReviewerImage = (CircleImageView) v.findViewById(R.id.reviewer_image);
+            vReviewerImage = (CircleImageView) v.findViewById(R.id.profile_image);
             vReviewImage = (ImageView) v.findViewById(R.id.review_image);
             vReviewerName = (TextView) v.findViewById(R.id.reviewer_name_show);
             vCreatedAt = (TextView) v.findViewById(R.id.review_create_at);
