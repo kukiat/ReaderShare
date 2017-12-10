@@ -14,23 +14,34 @@ public class ReviewItem {
     private int reviewRating;
     private String reviewTitle;
     private int timestamp;
+    private String reviewerEmail;
+
+    public String getReviewerEmail() {
+        return reviewerEmail;
+    }
+
+    public void setReviewerEmail(String reviewerEmail) {
+        this.reviewerEmail = reviewerEmail;
+    }
 
     public ReviewItem(String id, String bookImage, String bookName,
                       String reviewerId, String reviewContent, int reviewLike,
-                      int reviewRating, String reviewTitle, int timestamp) {
+                      int reviewRating, String reviewTitle, int timestamp, String reviewerEmail) {
         this.id = id;
         this.bookImage = bookImage;
         this.bookName = bookName;
         this.reviewerId = reviewerId;
         this.reviewContent = reviewContent;
+
         this.reviewLike = reviewLike;
         this.reviewRating = reviewRating;
         this.reviewTitle = reviewTitle;
         this.timestamp = timestamp;
+        this.reviewerEmail = reviewerEmail;
     }
 
 
-    public void seteId(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -66,7 +77,7 @@ public class ReviewItem {
         this.timestamp = timestamp;
     }
 
-    public String geteId() {
+    public String getId() {
         return id;
     }
 

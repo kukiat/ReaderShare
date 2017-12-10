@@ -1,6 +1,7 @@
 package com.example.kukiat.readershare;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -46,7 +47,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         holder.vReviewContent.setText(reviewItem.getReviewContent().substring(0, 50)+"...");
         holder.vReviewRating.setText(String.valueOf(reviewItem.getReviewRating())+" /10");
         Picasso.with(context).load(reviewItem.getBookImage()).into(holder.vReviewImage);
+        holder.vReviewerName.setText(reviewItem.getReviewerEmail());
         holder.vCreatedAt.setText(String.valueOf(reviewItem.getTimestamp()));
+
+        holder.vReviewImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ShowActivity.class);
+                intent.putExtra("reviewId", reviewItem.getId());
+                intent.putExtra("reviewerId", reviewItem.getReviewerId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     public String getDate(int timestamp) {
