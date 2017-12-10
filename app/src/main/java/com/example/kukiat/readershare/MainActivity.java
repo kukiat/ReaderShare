@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         vNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         menu = vNavigationView.getMenu();
         user = FirebaseAuth.getInstance().getCurrentUser();
+        Log.i("xxx",user.getDisplayName());
         fetchData();
         toggleTab();
         clearMenu();
