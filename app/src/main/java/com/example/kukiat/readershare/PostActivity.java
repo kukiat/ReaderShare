@@ -33,7 +33,7 @@ public class PostActivity extends AppCompatActivity {
     EditText vPostTitile;
     EditText vPostContent;
     EditText vPostRating;
-
+    EditText vPostBook;
     StorageReference storageReference;
     private FirebaseUser user;
     @Override
@@ -52,10 +52,14 @@ public class PostActivity extends AppCompatActivity {
         vPostTitile = (EditText) findViewById(R.id.post_topic);
         vPostContent = (EditText) findViewById(R.id.post_content);
         vPostRating = (EditText) findViewById(R.id.post_topic);
+        vPostBook = (EditText) findViewById(R.id.post_bookname);
 
         String postTitleData = vPostTitile.getText().toString();
         String postContentData = vPostContent.getText().toString();
         String postRatingData = vPostRating.getText().toString();
-        JSONObject postData =
+        String postBookData = vPostBook.getText().toString();
+
+        JSONObject data = new JSONObject();
+//        data.put("uId", user.getUid());
     }
 }
