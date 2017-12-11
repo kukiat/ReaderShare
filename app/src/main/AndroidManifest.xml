@@ -39,6 +39,7 @@
         <activity android:name=".EditProfileActivity"/>
         <activity android:name=".ProfileActivity"/>
         <activity android:name=".BookmarkActivity"/>
+        <activity android:name=".SubscribeActivity"/>
         <service android:name=".NotificationService" />
     </application>
 

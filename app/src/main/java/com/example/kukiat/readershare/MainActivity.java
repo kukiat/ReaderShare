@@ -83,6 +83,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
             }
+            case R.id.subscribe_menu: {
+                Intent intent = new Intent(getBaseContext(), SubscribeActivity.class);
+                startActivity(intent);
+                break;
+            }
             case R.id.logout: {
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(MainActivity.this, "Logout Success",
@@ -106,11 +111,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             menu.findItem(R.id.edit_profile_menu).setVisible(true);
             menu.findItem(R.id.bookmark_menu).setVisible(true);
             menu.findItem(R.id.logout).setVisible(true);
+            menu.findItem(R.id.subscribe_menu).setVisible(true);
             menu.findItem(R.id.signIn).setVisible(false);
         }else{
             menu.findItem(R.id.edit_profile_menu).setVisible(false);
             menu.findItem(R.id.bookmark_menu).setVisible(false);
             menu.findItem(R.id.logout).setVisible(false);
+            menu.findItem(R.id.subscribe_menu).setVisible(false);
             menu.findItem(R.id.signIn).setVisible(true);
         }
 

@@ -50,7 +50,6 @@ public class ReleaseAdapter extends RecyclerView.Adapter<ReleaseAdapter.ViewHold
         }else{
             Picasso.with(context).load(releaseItem.getBookImage()).into(holder.vReleaseBookImage);
         }
-        Log.i("wdwdwdsx",releaseItem.getReviewerId());
         holder.vListCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
