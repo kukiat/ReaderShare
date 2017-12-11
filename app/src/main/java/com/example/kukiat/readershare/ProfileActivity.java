@@ -168,10 +168,11 @@ public class ProfileActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             try {
                                 JSONArray subscribe = response.getJSONArray("result");
+                                Log.i("subb",subscribe.toString());
                                 for(int i=0;i<subscribe.length(); i++) {
                                     if(subscribe.get(i).equals(id)) {
 //                                        vSubBtn.setImageResource(R.drawable.ic_star_24dp);
-                                        vSubBtn.setText("SUBSCRIBE");
+                                        vSubBtn.setText("UNSUBSCRIBE");
                                         return;
                                     }
                                 }
@@ -205,11 +206,11 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         if(response.equals("200")){
 //                            vSubBtn.setImageResource(R.drawable.ic_star_24dp);
-                            vSubBtn.setText("SUBSCRIBE");
+                            vSubBtn.setText("UNSUBSCRIBE");
 
                         }else {
 //                            vSubBtn.setImageResource(R.drawable.ic_star_black_18dp);
-                            vSubBtn.setText("UNSUBSCRIBE");
+                            vSubBtn.setText("SUBSCRIBE");
                         }
                     }
                 },
