@@ -1,9 +1,11 @@
 package com.example.kukiat.readershare;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +14,10 @@ import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,7 +35,7 @@ public class NotificationService extends Service{
     private String secret = "KnE8YvodLiWpBCtMvE9fmrFaD";
     private String alias = "client";
     Handler handler;
-
+    FirebaseUser user;
     @Override
     public IBinder onBind(Intent intent) {
         Log.i("service", "onBlind BackgroudService");
@@ -56,31 +62,47 @@ public class NotificationService extends Service{
             public void handleMessage(Message msg) {
                 Bundle bundle = msg.getData();
                 String message = bundle.getString("myKey");
-//                Intent intent = new Intent(getBaseContext(), ShowActivity.class);
-//                intent.putExtra("message", message);
+                Log.i("dataa", message);
                 JSONObject data;
-                try {
-                    data = new JSONObject(message);
-                    Log.i("dataa", data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user!=null) {
+                    try {
+                        data = new JSONObject(message);
+                        JSONArray allFollow = data.getJSONArray("allFollower");
+                        String reviewId = data.getString("lastKey");
+                        String bookName = data.getString("bookName");
+                        String reviewerName = data.getString("reviewerName");
+                        for(int i=0;i<allFollow.length();i++) {
+                            if(allFollow.getString(i).equals(user.getUid())) {
+                                showNotification(reviewId, bookName, reviewerName);
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-
-//                PendingIntent pIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
-//
-//                NotificationCompat.Builder n = new NotificationCompat.Builder(getBaseContext())
-//                        .setContentTitle(message)
-//                        .setContentText(message)
-//                        .setSmallIcon(R.drawable.mail)
-//                        .setContentIntent(pIntent);
-//
-//                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//
-//                notificationManager.notify(0, n.build());
-
             }
         };
         return START_STICKY;
+    }
+
+    public void showNotification(String reviewId, String bookName, String reviewerName) {
+        Intent intent = new Intent(getBaseContext(), ShowActivity.class);
+        intent.putExtra("reviewId", reviewId);
+
+        PendingIntent pIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder noti = new NotificationCompat.Builder(getBaseContext())
+                .setContentTitle("New Book Review For You")
+                .setContentText(reviewerName+" has review "+ bookName)
+                .setSmallIcon(R.drawable.mail)
+                .setContentIntent(pIntent);
+
+        noti.setAutoCancel(true);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0, noti.build());
     }
 
     @Override

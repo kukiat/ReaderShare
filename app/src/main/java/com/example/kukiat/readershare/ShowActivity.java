@@ -101,11 +101,15 @@ public class ShowActivity extends AppCompatActivity {
                                 vReviewerName.setText(reviewerName);
                             }
                             if(reviewerImage.isEmpty()){
-                                Picasso.with(getApplicationContext()).load("https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg").into(vReviewerImage);
+                                Picasso.with(getApplicationContext()).load(R.drawable.default_review_image).into(vReviewerImage);
                             }else{
                                 Picasso.with(getApplicationContext()).load(reviewerImage).into(vReviewerImage);
                             }
-                            Picasso.with(getApplicationContext()).load(bookImage).into(vBookImageShow);
+                            if(bookImage.isEmpty()){
+                                Picasso.with(getApplicationContext()).load(R.drawable.default_book_image).into(vBookImageShow);
+                            }else{
+                                Picasso.with(getApplicationContext()).load(bookImage).into(vBookImageShow);
+                            }
 
                             for(int i=0; i<comment.length(); i++){
                                 JSONObject _comment = comment.getJSONObject(i);
