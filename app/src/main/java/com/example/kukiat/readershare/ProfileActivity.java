@@ -131,17 +131,20 @@ public class ProfileActivity extends AppCompatActivity {
                             recyclerView.setAdapter(adapter);
                             dialog.dismiss();
 
-                            vSubBtn.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    try {
-                                        onClickSubscribe(id, user.getUid());
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
+                            if(user.getUid().equals(id)){
+                                vSubBtn.setVisibility(View.GONE);
+                            }else{
+                                vSubBtn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        try {
+                                            onClickSubscribe(id, user.getUid());
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
-                                }
-                            });
-
+                                });
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -171,7 +174,6 @@ public class ProfileActivity extends AppCompatActivity {
                                 Log.i("subb",subscribe.toString());
                                 for(int i=0;i<subscribe.length(); i++) {
                                     if(subscribe.get(i).equals(id)) {
-//                                        vSubBtn.setImageResource(R.drawable.ic_star_24dp);
                                         vSubBtn.setText("UNSUBSCRIBE");
                                         return;
                                     }
@@ -205,11 +207,9 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         if(response.equals("200")){
-//                            vSubBtn.setImageResource(R.drawable.ic_star_24dp);
                             vSubBtn.setText("UNSUBSCRIBE");
 
                         }else {
-//                            vSubBtn.setImageResource(R.drawable.ic_star_black_18dp);
                             vSubBtn.setText("SUBSCRIBE");
                         }
                     }

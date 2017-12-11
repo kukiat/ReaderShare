@@ -47,7 +47,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void startSignIn() {
+    public void startSignIn() {
         if (!validateForm()) {
             return;
         }
@@ -59,7 +59,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.i("Res", String.valueOf(task.isSuccessful()));
                         if (task.isSuccessful()) {
                             Toast.makeText(LogInActivity.this, "Login Success.",
                                     Toast.LENGTH_SHORT).show();
