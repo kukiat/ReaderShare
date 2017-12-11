@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.subscribe_menu: {
                 Intent intent = new Intent(getBaseContext(), SubscribeActivity.class);
+                intent.putExtra("uid", user.getUid());
                 startActivity(intent);
                 break;
             }
