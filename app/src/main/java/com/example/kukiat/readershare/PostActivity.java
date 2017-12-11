@@ -71,15 +71,17 @@ public class PostActivity extends AppCompatActivity {
         vPostBook = (EditText) findViewById(R.id.post_bookname);
         vPostCreate = (Button) findViewById(R.id.post_create);
 
-        final String postTitleData = vPostTitile.getText().toString();
-        final String postContentData = vPostContent.getText().toString();
-        String postRatingData = vPostRating.getText().toString();
-        final String postBookData = vPostBook.getText().toString();
 
 
         vPostCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                final String postTitleData = vPostTitile.getText().toString();
+                final String postContentData = vPostContent.getText().toString();
+                String postRatingData = vPostRating.getText().toString();
+                final String postBookData = vPostBook.getText().toString();
+
                 try {
                     JSONObject jsonBody = new JSONObject();
                     jsonBody.put("reviewContent", postContentData);
@@ -87,6 +89,7 @@ public class PostActivity extends AppCompatActivity {
                     jsonBody.put("bookName", postBookData);
                     jsonBody.put("uId", user.getUid());
                     String requestBody = jsonBody.toString();
+                    Log.i("xxxxx",requestBody);
 
                     postReview(requestBody);
 
@@ -98,7 +101,7 @@ public class PostActivity extends AppCompatActivity {
     }
 
     public void postReview(final String requestBody) {
-        String url = "https://readershare.herokuapp.com/post";
+        String url = "http://10.0.2.2:3000/post";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {

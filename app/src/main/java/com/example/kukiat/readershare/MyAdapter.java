@@ -47,7 +47,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         holder.vReviewTitle.setText(reviewItem.getReviewTitle());
         holder.vReviewContent.setText(reviewItem.getReviewContent().substring(0, 50)+"...");
         holder.vReviewRating.setText(String.valueOf(reviewItem.getReviewRating())+" /10");
-        Picasso.with(context).load(reviewItem.getBookImage()).into(holder.vReviewImage);
         holder.vReviewerName.setText(reviewItem.getReviewerEmail());
         holder.vCreatedAt.setText(getDate(reviewItem.getTimestamp()));
         holder.vReviewImage.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +57,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                 context.startActivity(intent);
             }
         });
+        if(reviewItem.getBookImage().isEmpty()){
+            Picasso.with(context).load(R.drawable.default_book_image).into(holder.vReviewImage);
+        }else {
+            Picasso.with(context).load(reviewItem.getBookImage()).into(holder.vReviewImage);
+        }
         if(reviewItem.getReviewerName().isEmpty()) {
             holder.vReviewerName.setText(reviewItem.getReviewerEmail());
         }else {

@@ -56,27 +56,27 @@ public class NotificationService extends Service{
             public void handleMessage(Message msg) {
                 Bundle bundle = msg.getData();
                 String message = bundle.getString("myKey");
-                Log.i("service", message);
-                Intent intent = new Intent(getBaseContext(), ShowActivity.class);
-                intent.putExtra("message", message);
+//                Intent intent = new Intent(getBaseContext(), ShowActivity.class);
+//                intent.putExtra("message", message);
                 JSONObject data;
                 try {
                     data = new JSONObject(message);
+                    Log.i("dataa", data.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                PendingIntent pIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
-
-                NotificationCompat.Builder n = new NotificationCompat.Builder(getBaseContext())
-                        .setContentTitle(message)
-                        .setContentText(message)
-                        .setSmallIcon(R.drawable.mail)
-                        .setContentIntent(pIntent);
-
-                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-                notificationManager.notify(0, n.build());
+//                PendingIntent pIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
+//
+//                NotificationCompat.Builder n = new NotificationCompat.Builder(getBaseContext())
+//                        .setContentTitle(message)
+//                        .setContentText(message)
+//                        .setSmallIcon(R.drawable.mail)
+//                        .setContentIntent(pIntent);
+//
+//                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//
+//                notificationManager.notify(0, n.build());
 
             }
         };
