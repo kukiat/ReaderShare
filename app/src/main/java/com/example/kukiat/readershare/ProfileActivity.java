@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView vProfileImage;
     private TextView vProfileSlogan;
     private ImageButton vProfileSubscribe;
-
+    private ImageButton vImageButton;
     RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
@@ -73,7 +74,9 @@ public class ProfileActivity extends AppCompatActivity {
                         vProfileEmail = (TextView) findViewById(R.id.profile_email);
                         vProfileImage = (ImageView) findViewById(R.id.profile_image);
                         vProfileSlogan = (TextView) findViewById(R.id.profile_slogan);
-                        fetchSubscribe();
+                        vImageButton = (ImageButton) findViewById(R.id.subscribe_btn);
+                        vImageButton.setImageResource(R.drawable.ic_star_black_18dp);
+                        fetchSubscribe(id);
                         try {
                             JSONObject profile = response.getJSONObject("profile");
                             JSONArray post = response.getJSONArray("posts");
@@ -131,24 +134,37 @@ public class ProfileActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(jsonObjectRequest);
     }
 
-    public void fetchSubscribe() {
+    public void fetchSubscribe(final String id) {
         user = FirebaseAuth.getInstance().getCurrentUser();
-        String url = "https://readershare.herokuapp.com/getSubscribe/"+user.getUid();
+        if(user != null) {
+            String url = "https://readershare.herokuapp.com/getSubscribe/"+user.getUid();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError err){
-
-                    }
-                });
-        Volley.newRequestQueue(this).add(jsonObjectRequest);
+            final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                JSONArray subscribe = response.getJSONArray("result");
+                                for(int i=0;i<subscribe.length(); i++) {
+                                    if(subscribe.get(i).equals(id)) {
+                                        vImageButton.setImageResource(R.drawable.ic_star_24dp);
+                                        return;
+                                    }
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError err){
+                        }
+                    });
+            Volley.newRequestQueue(this).add(jsonObjectRequest);
+        }else{
+            vImageButton.setVisibility(View.GONE);
+        }
     }
 
 }
