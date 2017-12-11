@@ -1,5 +1,6 @@
 package com.example.kukiat.readershare;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,7 +40,7 @@ public class PostActivity extends AppCompatActivity {
 
     private static int TAKE_PHOTO_REQUEST_CODE = 11;
     Uri outputFileUri;
-
+    ProgressDialog dialog;
     EditText vPostTitile;
     EditText vPostContent;
     EditText vPostRating;
@@ -55,7 +56,8 @@ public class PostActivity extends AppCompatActivity {
         if(user!=null){
             onPrepareData();
         }else{
-
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -66,12 +68,10 @@ public class PostActivity extends AppCompatActivity {
         vPostBook = (EditText) findViewById(R.id.post_bookname);
         vPostCreate = (Button) findViewById(R.id.post_create);
 
-
-
         vPostCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                dialog = ProgressDialog.show(PostActivity.this, "","Please Wait...", true);
                 final String postTitleData = vPostTitile.getText().toString();
                 final String postContentData = vPostContent.getText().toString();
                 String postRatingData = vPostRating.getText().toString();
@@ -84,7 +84,6 @@ public class PostActivity extends AppCompatActivity {
                     jsonBody.put("bookName", postBookData);
                     jsonBody.put("uId", user.getUid());
                     String requestBody = jsonBody.toString();
-                    Log.i("xxxxx",requestBody);
 
                     postReview(requestBody);
 
@@ -103,6 +102,7 @@ public class PostActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         if(response.equals("200")){
+                            dialog.dismiss();
                             Intent i = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(i);
                             Toast.makeText(PostActivity.this, "Post Review Success",

@@ -5,7 +5,7 @@
     android:id="@+id/header_layout"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:background="@drawable/bg_menu_header"
+    android:background="@drawable/layout_navigation"
     android:padding="20dp">
     <ImageView
         android:id="@+id/current_image"

@@ -45,7 +45,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         final ReviewItem reviewItem = reviewItems.get(position);
 
         holder.vReviewTitle.setText(reviewItem.getReviewTitle());
-        holder.vReviewContent.setText(reviewItem.getReviewContent());
+        holder.vReviewContent.setText(reviewItem.getReviewContent().substring(0, Math.min(reviewItem.getReviewContent().length(), 50)));
         holder.vReviewRating.setText(String.valueOf(reviewItem.getReviewRating())+" /10");
         holder.vReviewerName.setText(reviewItem.getReviewerEmail());
         holder.vCreatedAt.setText(getDate(reviewItem.getTimestamp()));
