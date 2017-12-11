@@ -11,21 +11,30 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -41,7 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView vProfileImage;
     private TextView vProfileSlogan;
     private ImageButton vProfileSubscribe;
-    private ImageButton vImageButton;
+    private ImageButton vSubBtn;
     RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
@@ -74,8 +83,8 @@ public class ProfileActivity extends AppCompatActivity {
                         vProfileEmail = (TextView) findViewById(R.id.profile_email);
                         vProfileImage = (ImageView) findViewById(R.id.profile_image);
                         vProfileSlogan = (TextView) findViewById(R.id.profile_slogan);
-                        vImageButton = (ImageButton) findViewById(R.id.subscribe_btn);
-                        vImageButton.setImageResource(R.drawable.ic_star_black_18dp);
+                        vSubBtn = (ImageButton) findViewById(R.id.subscribe_btn);
+                        vSubBtn.setImageResource(R.drawable.ic_star_black_18dp);
                         fetchSubscribe(id);
                         try {
                             JSONObject profile = response.getJSONObject("profile");
@@ -88,6 +97,7 @@ public class ProfileActivity extends AppCompatActivity {
                             dialog.dismiss();
                             vProfileEmail.setText(email);
                             vProfileSlogan.setText("Liverpool is The BEST. YNWA");
+
                             if(name.isEmpty())
                                 vProfileName.setText(email);
                             else
@@ -119,6 +129,17 @@ public class ProfileActivity extends AppCompatActivity {
 
                             }
 
+                            vSubBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    try {
+                                        onClickSubscribe(id, user.getUid());
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -147,7 +168,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 JSONArray subscribe = response.getJSONArray("result");
                                 for(int i=0;i<subscribe.length(); i++) {
                                     if(subscribe.get(i).equals(id)) {
-                                        vImageButton.setImageResource(R.drawable.ic_star_24dp);
+                                        vSubBtn.setImageResource(R.drawable.ic_star_24dp);
                                         return;
                                     }
                                 }
@@ -163,8 +184,61 @@ public class ProfileActivity extends AppCompatActivity {
                     });
             Volley.newRequestQueue(this).add(jsonObjectRequest);
         }else{
-            vImageButton.setVisibility(View.GONE);
+            vSubBtn.setVisibility(View.GONE);
         }
     }
 
+    public void onClickSubscribe(String subscriber, String follower) throws JSONException {
+        String url = "https://readershare.herokuapp.com/subscribe";
+
+        JSONObject jsonBody = new JSONObject();
+        jsonBody.put("subscriber", subscriber);
+        jsonBody.put("follower", follower);
+        final String requestBody = jsonBody.toString();
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if(response == "200"){
+                            vProfileName.setText("wwwwwwwwwwwwww");
+                            vSubBtn.setImageResource(R.drawable.ic_star_24dp);
+                        }else {
+                            vSubBtn.setImageResource(R.drawable.ic_star_black_18dp);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError err) {
+                        Log.d("Error.Response", err.getMessage());
+                    }
+                }
+        ) {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return requestBody == null ? null : requestBody.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                    return null;
+                }
+            }
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                String responseString = "";
+                if (response != null) {
+                    responseString = String.valueOf(response.statusCode);
+                }
+                return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        };
+        Volley.newRequestQueue(this).add(postRequest);
+    }
 }
