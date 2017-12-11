@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,7 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView vProfileImage;
     private TextView vProfileSlogan;
     private ImageButton vProfileSubscribe;
-    private ImageButton vSubBtn;
+    private Button vSubBtn;
     RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
@@ -84,8 +85,8 @@ public class ProfileActivity extends AppCompatActivity {
                         vProfileEmail = (TextView) findViewById(R.id.profile_email);
                         vProfileImage = (ImageView) findViewById(R.id.profile_image);
                         vProfileSlogan = (TextView) findViewById(R.id.profile_slogan);
-                        vSubBtn = (ImageButton) findViewById(R.id.subscribe_btn);
-                        vSubBtn.setImageResource(R.drawable.ic_star_black_18dp);
+                        vSubBtn = (Button) findViewById(R.id.subscribe_btn);
+//                        vSubBtn.setImageResource(R.drawable.ic_star_black_18dp);
                         fetchSubscribe(id);
                         try {
                             JSONObject profile = response.getJSONObject("profile");
@@ -169,7 +170,8 @@ public class ProfileActivity extends AppCompatActivity {
                                 JSONArray subscribe = response.getJSONArray("result");
                                 for(int i=0;i<subscribe.length(); i++) {
                                     if(subscribe.get(i).equals(id)) {
-                                        vSubBtn.setImageResource(R.drawable.ic_star_24dp);
+//                                        vSubBtn.setImageResource(R.drawable.ic_star_24dp);
+                                        vSubBtn.setText("SUBSCRIBE");
                                         return;
                                     }
                                 }
@@ -201,12 +203,13 @@ public class ProfileActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(response == "200"){
-                            vProfileName.setText("wwwwwwwwwwwwww");
-                            vSubBtn.setImageResource(R.drawable.ic_star_24dp);
+                        if(response.equals("200")){
+//                            vSubBtn.setImageResource(R.drawable.ic_star_24dp);
+                            vSubBtn.setText("SUBSCRIBE");
 
                         }else {
-                            vSubBtn.setImageResource(R.drawable.ic_star_black_18dp);
+//                            vSubBtn.setImageResource(R.drawable.ic_star_black_18dp);
+                            vSubBtn.setText("UNSUBSCRIBE");
                         }
                     }
                 },

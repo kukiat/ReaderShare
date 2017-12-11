@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -61,5 +62,43 @@ public class PostActivity extends AppCompatActivity {
 
         JSONObject data = new JSONObject();
 //        data.put("uId", user.getUid());
+    }
+
+    private boolean validateForm() {
+        boolean valid = true;
+
+        String title = vPostTitile.getText().toString();
+        if (TextUtils.isEmpty(title)) {
+            vPostTitile.setError("Required.");
+            valid = false;
+        } else {
+            vPostTitile.setError(null);
+        }
+
+        String content = vPostContent.getText().toString();
+        if (TextUtils.isEmpty(content)) {
+            vPostContent.setError("Required.");
+            valid = false;
+        } else {
+            vPostContent.setError(null);
+        }
+
+        String rating = vPostRating.getText().toString();
+        if (TextUtils.isEmpty(rating)) {
+            vPostRating.setError("Required.");
+            valid = false;
+        } else {
+            vPostRating.setError(null);
+        }
+
+        String book = vPostBook.getText().toString();
+        if (TextUtils.isEmpty(book)) {
+            vPostBook.setError("Required.");
+            valid = false;
+        } else {
+            vPostBook.setError(null);
+        }
+
+        return valid;
     }
 }
