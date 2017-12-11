@@ -42,6 +42,7 @@ public class SubscribeActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscribe);
+<<<<<<< HEAD
         user = FirebaseAuth.getInstance().getCurrentUser();
         dialog = ProgressDialog.show(SubscribeActivity.this, "","Loading. Please wait...", true);
         fetchDataSubscribe();
@@ -86,5 +87,15 @@ public class SubscribeActivity extends AppCompatActivity {
                 });
         Volley.newRequestQueue(this).add(jsonObjectRequest);
     }
+=======
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null) {
+            String uid = bundle.getString("uid");
+            Log.i("uid", uid);
+
+        }
+    }
+
+>>>>>>> 672fc894d6b8db0aaba8fe709043792a1494a3d2
 
 }

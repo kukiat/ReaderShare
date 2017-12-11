@@ -204,6 +204,8 @@ public class ProfileActivity extends AppCompatActivity {
                         if(response == "200"){
                             vProfileName.setText("wwwwwwwwwwwwww");
                             vSubBtn.setImageResource(R.drawable.ic_star_24dp);
+                            finish();
+                            startActivity(getIntent());
                         }else {
                             vSubBtn.setImageResource(R.drawable.ic_star_black_18dp);
                         }
