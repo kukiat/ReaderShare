@@ -60,10 +60,11 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         Bundle bundle = getIntent().getExtras();
-        dialog = ProgressDialog.show(ProfileActivity.this, "","Loading. Please wait...", true);
+
         if(bundle!=null) {
             String id = bundle.getString("id");
             Log.i("profile", id);
+            dialog = ProgressDialog.show(ProfileActivity.this, "","Loading. Please wait...", true);
             fetchDataProfile(id);
 
         }
@@ -94,7 +95,6 @@ public class ProfileActivity extends AppCompatActivity {
                             String email = profile.getString("email");
                             String image = profile.getString("image");
 
-                            dialog.dismiss();
                             vProfileEmail.setText(email);
                             vProfileSlogan.setText("Liverpool is The BEST. YNWA");
 
@@ -124,10 +124,11 @@ public class ProfileActivity extends AppCompatActivity {
 
                                 ReleaseItem releaseItem = new ReleaseItem(postId, bookImage, reviewerId, reviewTitle, timeStamp);
                                 releaseItemList.add(releaseItem);
-                                adapter = new ReleaseAdapter(releaseItemList, getApplicationContext());
-                                recyclerView.setAdapter(adapter);
 
                             }
+                            adapter = new ReleaseAdapter(releaseItemList, getApplicationContext());
+                            recyclerView.setAdapter(adapter);
+                            dialog.dismiss();
 
                             vSubBtn.setOnClickListener(new View.OnClickListener() {
                                 @Override

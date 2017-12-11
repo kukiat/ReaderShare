@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -34,7 +36,17 @@ public class SubscribeAdapter extends RecyclerView.Adapter<SubscribeAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        final SubscribeItem subscribeItem = subscribeItems.get(position);
+        if(subscribeItem.getSubscribeName().isEmpty()){
+            holder.vUsername.setText(subscribeItem.getSubscribeEmail());
+        }else{
+            holder.vUsername.setText(subscribeItem.getSubscribeName());
+        }
+        if(subscribeItem.getSubscribeImage().isEmpty()){
+            Picasso.with(context).load("https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg").into(holder.vImage);
+        }else{
+            Picasso.with(context).load(subscribeItem.getSubscribeImage()).into(holder.vImage);
+        }
     }
 
     @Override

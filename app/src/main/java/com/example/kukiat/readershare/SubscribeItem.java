@@ -6,47 +6,46 @@ package com.example.kukiat.readershare;
 
 public class SubscribeItem {
     private String id;
-    private String reviewerImage;
-    private String reviewerName;
-    private String subscribe;
-
-    public SubscribeItem(String id, String reviewerImage, String reviewerName, String subscribe) {
-        this.id = id;
-        this.reviewerImage = reviewerImage;
-        this.reviewerName = reviewerName;
-        this.subscribe = subscribe;
+    private String subscribeName;
+    private String subscribeImage;
+    private String subscribeEmail;
+    public String getId() {
+        return id;
     }
 
-    public String getId() {
+    public String getSubscribeEmail() {
+        return subscribeEmail;
+    }
 
-        return id;
+    public void setSubscribeEmail(String subscribeEmail) {
+        this.subscribeEmail = subscribeEmail;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public String getReviewerImage() {
-        return reviewerImage;
+    public String getSubscribeName() {
+        return subscribeName;
     }
 
-    public void setReviewerImage(String reviewerImage) {
-        this.reviewerImage = reviewerImage;
+    public void setSubscribeName(String subscribeName) {
+        this.subscribeName = subscribeName;
     }
 
-    public String getReviewerName() {
-        return reviewerName;
+    public String getSubscribeImage() {
+        return subscribeImage;
     }
 
-    public void setReviewerName(String reviewerName) {
-        this.reviewerName = reviewerName;
+    public void setSubscribeImage(String subscribeImage) {
+        this.subscribeImage = subscribeImage;
     }
 
-    public String getSubscribe() {
-        return subscribe;
-    }
+    public SubscribeItem(String id, String subscribeName, String subscribeImage, String subscribeEmail) {
 
-    public void setSubscribe(String subscribe) {
-        this.subscribe = subscribe;
+        this.id = id;
+        this.subscribeName = subscribeName;
+        this.subscribeImage = subscribeImage;
+        this.subscribeEmail = subscribeEmail;
     }
 }

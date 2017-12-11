@@ -33,29 +33,58 @@ import java.util.List;
 
 public class SubscribeActivity extends AppCompatActivity {
 
-    private FirebaseUser user;
-    private TextView vProfileName;
-    private TextView vProfileEmail;
-    private ImageView vProfileImage;
-    private TextView vProfileSlogan;
-    private ImageButton vProfileSubscribe;
-    private ImageButton vImageButton;
+
     RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-
+    private FirebaseUser user;
     ProgressDialog dialog;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscribe);
-        Bundle bundle = getIntent().getExtras();
-//        dialog = ProgressDialog.show(SubscribeActivity.this, "","Loading. Please wait...", true);
-        if(bundle!=null) {
-            String uid = bundle.getString("uid");
-            Log.i("uid", uid);
-
-        }
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        dialog = ProgressDialog.show(SubscribeActivity.this, "","Loading. Please wait...", true);
+        fetchDataSubscribe();
     }
 
+    public void fetchDataSubscribe() {
+
+        recyclerView = (RecyclerView) findViewById(R.id.subscribe_list_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        final List<SubscribeItem> subscribeItemList = new ArrayList<>();
+        String url = "https://readershare.herokuapp.com/getprofile/"+user.getUid();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response){
+                        try {
+                            JSONArray allSubscribe = response.getJSONArray("subscribe");
+                            for(int i=0 ;i<allSubscribe.length(); i++) {
+                                JSONObject subscribe = allSubscribe.getJSONObject(i);
+                                String subscribeId = subscribe.getString("uId");
+                                String subscribeEmail = subscribe.getString("email");
+                                String subscribeName = subscribe.getString("name");
+                                String subscribeImage = subscribe.getString("image");
+                                SubscribeItem subscribeItem = new SubscribeItem(subscribeId, subscribeName, subscribeImage, subscribeEmail);
+                                subscribeItemList.add(subscribeItem);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        dialog.dismiss();
+                        adapter = new SubscribeAdapter(subscribeItemList, getApplicationContext());
+                        recyclerView.setAdapter(adapter);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError err){
+
+                    }
+                });
+        Volley.newRequestQueue(this).add(jsonObjectRequest);
+    }
 
 }
