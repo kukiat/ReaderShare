@@ -78,8 +78,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         holder.vReviewerImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ProfileActivity.class);
-                context.startActivity(intent);
+                Intent intentProfile = new Intent(context, ProfileActivity.class);
+                intentProfile.putExtra("id",reviewItem.getReviewerId());
+                context.startActivity(intentProfile);
             }
         });
     }

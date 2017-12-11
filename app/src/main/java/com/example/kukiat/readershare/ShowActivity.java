@@ -1,5 +1,6 @@
 package com.example.kukiat.readershare;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.media.Image;
 import android.os.Bundle;
@@ -37,16 +38,19 @@ public class ShowActivity extends AppCompatActivity {
     ImageView vReviewerImage;
     TextView vReviewerName;
     ImageView vBookImageShow;
+
+    ProgressDialog dialog;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.get_list_item);
 
         Bundle bundle = getIntent().getExtras();
+        dialog = ProgressDialog.show(ShowActivity.this, "","Loading. Please wait...", true);
         if(bundle != null) {
-            Log.i("response","come");
             String reviewId = bundle.getString("reviewId");
-            Log.i("id", String.valueOf(reviewId));
+            Log.i("reviewId", String.valueOf(reviewId));
             fetchGetFeedData(reviewId);
         }
     }
@@ -89,7 +93,7 @@ public class ShowActivity extends AppCompatActivity {
 //
                             String bookImage = book.getString("image");
 //                            String bookName = book.getString("name");
-
+                            dialog.dismiss();
                             vReviewTitleShow.setText(reviewTitle);
                             vReviewContentShow.setText(reviewContent);
                             vReviewLikeShow.setText(String.valueOf(reviewLike));
