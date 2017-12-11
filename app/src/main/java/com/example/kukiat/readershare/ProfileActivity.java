@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView vProfileEmail;
     private ImageView vProfileImage;
     private TextView vProfileSlogan;
+    private ImageButton vProfileSubscribe;
 
     RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;

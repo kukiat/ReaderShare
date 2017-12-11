@@ -68,12 +68,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         }else{
             Picasso.with(context).load(reviewItem.getReviewerImage()).into(holder.vReviewerImage);
         }
-        holder.vBookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i("click","subscribe");
-            }
-        });
+//        holder.vBookmark.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.i("click","subscribe");
+//            }
+//        });
 
         holder.vReviewerImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +116,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         public ImageView vReviewImage;
         public TextView vReviewerName;
         public TextView vCreatedAt;
-        public ImageView vBookmark;
+//        public ImageView vBookmark;
 
         public ViewHolder(View v) {
             super(v);
@@ -128,7 +128,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             vReviewImage = (ImageView) v.findViewById(R.id.review_image);
             vReviewerName = (TextView) v.findViewById(R.id.reviewer_name_show);
             vCreatedAt = (TextView) v.findViewById(R.id.review_create_at);
-            vBookmark = (ImageView) v.findViewById(R.id.bookmark);
+//            vBookmark = (ImageView) v.findViewById(R.id.bookmark);
         }
     }
 }
