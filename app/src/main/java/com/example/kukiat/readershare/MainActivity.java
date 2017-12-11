@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 String bookImage = book.getString("image");
                                 String bookName = book.getString("name");
 
-                                String reviewerId = reviewer.getString("id");
+                                String reviewerId = reviewer.getString("uId");
                                 String reviewerEmail = reviewer.getString("email");
                                 String reviewerImage = reviewer.getString("image");
                                 String reviewerName = reviewer.getString("name");
