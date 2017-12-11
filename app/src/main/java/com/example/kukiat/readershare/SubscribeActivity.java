@@ -49,6 +49,7 @@ public class SubscribeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscribe);
         Bundle bundle = getIntent().getExtras();
+//        dialog = ProgressDialog.show(SubscribeActivity.this, "","Loading. Please wait...", true);
         if(bundle!=null) {
             String uid = bundle.getString("uid");
             Log.i("uid", uid);
