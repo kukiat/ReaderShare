@@ -1,8 +1,6 @@
 package com.example.kukiat.readershare;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,7 +42,7 @@ public class ShowActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.get_list_item);
+        setContentView(R.layout.activity_show);
 
         Bundle bundle = getIntent().getExtras();
         dialog = ProgressDialog.show(ShowActivity.this, "","Loading. Please wait...", true);
