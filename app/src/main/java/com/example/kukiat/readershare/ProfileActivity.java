@@ -15,6 +15,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -32,6 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    private FirebaseUser user;
     private TextView vProfileName;
     private TextView vProfileEmail;
     private ImageView vProfileImage;
@@ -55,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         }
     }
-    public void fetchDataProfile(String id) {
+    public void fetchDataProfile(final String id) {
         recyclerView = (RecyclerView) findViewById(R.id.reviewer_list_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -70,6 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
                         vProfileEmail = (TextView) findViewById(R.id.profile_email);
                         vProfileImage = (ImageView) findViewById(R.id.profile_image);
                         vProfileSlogan = (TextView) findViewById(R.id.profile_slogan);
+                        fetchSubscribe();
                         try {
                             JSONObject profile = response.getJSONObject("profile");
                             JSONArray post = response.getJSONArray("posts");
@@ -127,6 +131,24 @@ public class ProfileActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(jsonObjectRequest);
     }
 
+    public void fetchSubscribe() {
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String url = "https://readershare.herokuapp.com/getSubscribe/"+user.getUid();
 
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError err){
+
+                    }
+                });
+        Volley.newRequestQueue(this).add(jsonObjectRequest);
+    }
 
 }
