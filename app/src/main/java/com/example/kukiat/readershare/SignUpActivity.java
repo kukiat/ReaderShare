@@ -94,7 +94,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-        //                            FirebaseUser user = mAuth.getCurrentUser();
                                     Toast.makeText(SignUpActivity.this, "Register Success.",
                                             Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(SignUpActivity.this, MainActivity.class));

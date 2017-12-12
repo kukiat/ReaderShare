@@ -72,12 +72,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         }else{
             Picasso.with(context).load(reviewItem.getReviewerImage()).into(holder.vReviewerImage);
         }
-//        holder.vBookmark.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.i("click","subscribe");
-//            }
-//        });
 
         holder.vReviewerImage.setOnClickListener(new View.OnClickListener() {
             @Override
