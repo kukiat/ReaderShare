@@ -64,7 +64,7 @@ public class PostActivity extends AppCompatActivity {
     public void onPrepareData()  {
         vPostTitile = (EditText) findViewById(R.id.post_topic);
         vPostContent = (EditText) findViewById(R.id.post_content);
-        vPostRating = (EditText) findViewById(R.id.post_topic);
+        vPostRating = (EditText) findViewById(R.id.post_rate);
         vPostBook = (EditText) findViewById(R.id.post_bookname);
         vPostCreate = (Button) findViewById(R.id.post_create);
 

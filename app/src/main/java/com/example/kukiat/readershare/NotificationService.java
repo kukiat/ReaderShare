@@ -68,6 +68,7 @@ public class NotificationService extends Service{
                 if(user!=null) {
                     try {
                         data = new JSONObject(message);
+                        Log.i("push", data.toString());
                         JSONArray allFollow = data.getJSONArray("allFollower");
                         String reviewId = data.getString("lastKey");
                         String bookName = data.getString("bookName");
